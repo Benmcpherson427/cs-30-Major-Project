@@ -4,17 +4,19 @@
 A Pokemon battle simulator
 
 ## Needs to Have List
-- An assortment of pokemon to give the player
+- 2 pokemon to give the player randomly
 - Moves for each pokemon
 - Types interactions
 - A start screen
+- sound effects and background noise
 - HP, ATK, DEF, SPD, SPA, SPE stats
 - Text boxes saying what moved was used, if the move missed, if the pokemon fainted
-- Menu with game options
+
 
 
 
 ## Nice to Have List
+- More Pokemon
 - Proper damage calculator
 - Multiple pokemon per player
 - two player 
@@ -22,3 +24,4 @@ A Pokemon battle simulator
     - online
 - attack animations
 - animated sprites
+- Menu with game options
