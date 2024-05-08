@@ -5,11 +5,16 @@
 // Extra for Experts:
 // - describe what you did to take this project "above and beyond"
 
-let yourX = width/4;
-let yourY = height * (3/4);
 let diameter = 100;
 let charizardIMG;
 let pikachuIMG;
+let bg;
+
+function preload() {
+  pikachuIMG = loadImage("front sprites/pikachufront.png");
+  charizardIMG = loadImage("back sprites/charizardback.png");
+  bg = loadImage("other displays/pokemonbackground.png");
+}
 
 class pokemon {
   constructor(HP, ATK, DEF, SPA, SPD, SPE, type1, type2) {
@@ -24,34 +29,32 @@ class pokemon {
   }
 }
 
-function preload() {
-  pikachuIMG = loadImage("pikachufront.png");
-  charizardIMG = loadImage("charizardback.png");
-}
+
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  charizard = new pokemon(78, 84, 78, 109, 85, 100, "fire", "flying");
+  // charizard = new pokemon(78, 84, 78, 109, 85, 100, "fire", "flying");
 }
 
 function draw() {
-  background(220);
+  background(255);
+  // image(bg, windowWidth/2, windowHeight/2, windowWidth, windowHeight);
   displayBattleGrid();
-
+  loadPokemon();
 }
 
 
 function displayBattleGrid() {
   optionsBox();
-  battleSpots();
 }
 
 function optionsBox() {
   fill(0);
-  rect(0, height * 0.8, width, height);
+  rect(0, windowHeight * 0.8, windowWidth, windowHeight);
 }
- 
-function battleSpots() {
-  fill("green");
-  circle(yourX, yourY, diameter);
+
+
+function loadPokemon() {
+  image(pikachuIMG, windowWidth*(4/7), windowHeight/8, pikachuIMG.width*4, pikachuIMG.height*4);
+  image(charizardIMG, windowWidth/7, windowHeight/4, charizardIMG.width *4, charizardIMG.height*4);
 }
