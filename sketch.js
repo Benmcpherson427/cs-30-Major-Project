@@ -38,23 +38,18 @@ function setup() {
 
 function draw() {
   background(255);
-  // image(bg, windowWidth/2, windowHeight/2, windowWidth, windowHeight);
-  displayBattleGrid();
+  image(bg, 0, 0, windowWidth, windowHeight);
   loadPokemon();
-}
-
-
-function displayBattleGrid() {
   optionsBox();
 }
 
 function optionsBox() {
-  fill(0);
-  rect(0, windowHeight * 0.8, windowWidth, windowHeight);
+  fill(200);
+  rect(windowWidth/2, windowHeight*(3/4), windowWidth, windowHeight);
+
 }
 
-
 function loadPokemon() {
-  image(pikachuIMG, windowWidth*(4/7), windowHeight/8, pikachuIMG.width*4, pikachuIMG.height*4);
-  image(charizardIMG, windowWidth/7, windowHeight/4, charizardIMG.width *4, charizardIMG.height*4);
+  image(pikachuIMG, windowWidth*(4.5/7), windowHeight/4, pikachuIMG.width*4, pikachuIMG.height*4);
+  image(charizardIMG, windowWidth/7, windowHeight/2.5, charizardIMG.width *5, charizardIMG.height*5);
 }
