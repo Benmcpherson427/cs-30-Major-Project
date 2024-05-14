@@ -6,29 +6,25 @@
 // - describe what you did to take this project "above and beyond"
 
 let diameter = 100;
-let charizardIMG;
-let pikachuIMG;
+let charizardBIMG;
+let pikachuFIMG;
 let bg;
 let pikachu;
 let charizard;
+let crit;
+let STAB;
+let sE;
+let nVE;
 
 function preload() {
-  pikachuIMG = loadImage("front sprites/pikachufront.png");
-  charizardIMG = loadImage("back sprites/charizardback.png");
+  pikachuFIMG = loadImage("front sprites/pikachufront.png");
+  charizardBIMG = loadImage("back sprites/charizardback.png");
   bg = loadImage("other displays/pokemonbackground.png");
 }
 
-class move {
-  constructor(movedUsed, type, damage, hitType) {
-    this.movedUsed = movedUsed;
-    this.type = type;
-    this.damage = damage;
-    this.hitType = hitType;
-  }
-}
 
 class pokemon {
-  constructor(HP, ATK, DEF, SPA, SPD, SPE, type1, type2, level) {
+  constructor(HP, ATK, DEF, SPA, SPD, SPE, type1, type2) {
     this.HP = HP;
     this.ATK = ATK;
     this.DEF = DEF;
@@ -37,10 +33,7 @@ class pokemon {
     this.SPE = SPE;
     this.type1 = type1;
     this.type2 = type2;
-    this.level = 50;
   }
-
-
 }
 
 
@@ -56,18 +49,53 @@ function draw() {
   image(bg, windowWidth/2, windowHeight/2, windowWidth, windowHeight);
   loadPokemon();
   healthbox();
+  kill();
   // optionsBox();
   
 }
 
+// temporary function for damage
 function keyPressed() {
-  crit = random(2);
-  STAB = true
+
+  // crit = random(100);
+  // if (crit < 5) {
+  //   crit = 2;
+  // }
+  // else {
+  //   crit = 1;
+  // }
+
+  // // Checks to see if move is super effective on opposing pokemon
+  // if (sE === true) {
+  //   sE = 1.5;
+  // }
+  // else {
+  //   sE = 1;
+  // }
+  // // Checks to see if move is not every effective on opposing pokemon
+  // if (nVE === true) {
+  //   nVE = 0.5;
+  // }
+  // else {
+  //   nVE = 1;
+  // }
+
+  // // Checks for if move is same type as pokemon using move
+  // if (STAB === true) {
+  //   STAB = 1.5;
+  // }
+  // else {
+  //   STAB = 1;
+  // }
+
+
+  // ((((100/5) + 2)*this.damage*(charizard.ATK/pikachu.DEF)/50)+2)*random(0.85, 1)*STAB*sE*nVE;
+
   if (key === "d") {
-    pikachu.HP -= ((((100/5) + 2)*this.damage*(charizard.ATK/pikachu.DEF)/50)+2)*
+    pikachu.HP -= round(10 * random(0.85, 1));
   }
   if (key === "a") {
-    charizard.HP -= 15;
+    charizard.HP -= round(15 * random(0.85, 1));
   }
 }
 
