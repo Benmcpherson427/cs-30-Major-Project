@@ -7,10 +7,18 @@
 
 let diameter = 100;
 let charizardBIMG;
+let pikachuBIMG;
+let greninjaBIMG;
+let lucarioBIMG;
+let charizardFIMG;
 let pikachuFIMG;
+let greninjaFIMG;
+let lucarioFIMG;
 let bg;
 let pikachu;
 let charizard;
+let greninja;
+let lucario;
 let crit;
 let STAB;
 let sE;
@@ -18,7 +26,13 @@ let nVE;
 
 function preload() {
   pikachuFIMG = loadImage("front sprites/pikachufront.png");
+  pikachuBIMG = loadImage("back sprites/pikachuback.png");
+  charizardFIMG = loadImage("front sprites/charizardfront.png");
   charizardBIMG = loadImage("back sprites/charizardback.png");
+  greninjaFIMG = loadImage("front sprites/greninjaFront.png");
+  greninjaBIMG = loadImage("back sprites/greninjaBack.png");
+  lucarioFIMG = loadImage("front sprite/lucariofront.png");
+  lucarioBIMG = loadImage("back sprites/lucarioback.png");
   bg = loadImage("other displays/pokemonbackground.png");
 }
 
@@ -42,6 +56,8 @@ function setup() {
   createCanvas(windowWidth, windowHeight);
   charizard = new pokemon(78, 84, 78, 109, 85, 100, "fire", "flying");
   pikachu = new pokemon(45, 80, 50, 75, 60, 120, "electric", "none");
+  greninja = new pokemon(72, 95, 67, 103, 71, 122, "water", "dark");
+  lucario = new pokemon(70, 110, 70, 115, 70, 90, "fighting", "steel");
 }
 
 function draw() {
@@ -120,18 +136,24 @@ function healthbox() {
   text(charizard.HP, windowWidth/8, windowHeight/8);
 }
 
-// function mousePressed() {
-//   console.log(mouseX, mouseY);
-//   if (mouseX >= 1200 && mouseX <= 1600 && mouseY >= 570 && mouseY <= 765) {
-//     fill(200);
-//     rect(windowWidth*3/4, windowHeight*(3/4), windowWidth, windowHeight);
-//   }
-// }
+function mousePressed() {
+  console.log(mouseX, mouseY);
+  if (mouseX >= 1200 && mouseX <= 1600 && mouseY >= 570 && mouseY <= 765) {
+    fill(200);
+    rect(windowWidth*3/4, windowHeight*(3/4), windowWidth, windowHeight);
+  }
+}
 
 function loadPokemon() {
   imageMode(CENTER);
-  image(pikachuIMG, windowWidth*(5.3/7), windowHeight/2, pikachuIMG.width*4, pikachuIMG.height*4);
-  image(charizardIMG, windowWidth/4.5, windowHeight - charizardIMG.height*2.2, charizardIMG.width *5, charizardIMG.height*5);
+  // image(pikachuFIMG, windowWidth*(5.3/7), windowHeight/2, pikachuFIMG.width*5, pikachuFIMG.height*5);
+  // image(pikachuBIMG, windowWidth/4.5, windowHeight - pikachuBIMG.height*1.5, pikachuBIMG.width *5, pikachuBIMG.height*5);
+  // image(greninjaFIMG, windowWidth*(5.3/7), windowHeight/2, greninjaFIMG.width, greninjaFIMG.height);
+  // image(greninjaBIMG, windowWidth/4, windowHeight - greninjaBIMG.height/2.2, greninjaBIMG.width, greninjaBIMG.height);
+  // image(charizardBIMG, windowWidth/4.5, windowHeight - charizardBIMG.height*2.2, charizardBIMG.width *5, charizardBIMG.height*5);
+  image(lucarioFIMG, windowWidth*(5.3/7), windowHeight/2, lucarioFIMG.width*5, lucarioFIMG.height*5);
+  image(charizardBIMG, windowWidth/4.5, windowHeight - charizardBIMG.height*2.2, charizardBIMG.width *5, charizardBIMG.height*5);
+ 
 }
 
 function dealDamage() {
