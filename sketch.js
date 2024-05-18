@@ -19,6 +19,8 @@ let pikachu;
 let charizard;
 let greninja;
 let lucario;
+let pokemon1;
+let pokemon2;
 let crit;
 let STAB;
 let sE;
@@ -58,6 +60,8 @@ function setup() {
   pikachu = new pokemon(45, 80, 50, 75, 60, 120, "electric", "none");
   greninja = new pokemon(72, 95, 67, 103, 71, 122, "water", "dark");
   lucario = new pokemon(70, 110, 70, 115, 70, 90, "fighting", "steel");
+  pokemon1 = random([lucario, charizard, greninja, pikachu]);
+  pokemon2 = random([lucario, greninja, charizard, pikachu]);
 }
 
 function draw() {
@@ -108,10 +112,10 @@ function keyPressed() {
   // ((((100/5) + 2)*this.damage*(charizard.ATK/pikachu.DEF)/50)+2)*random(0.85, 1)*STAB*sE*nVE;
 
   if (key === "d") {
-    pikachu.HP -= round(10 * random(0.85, 1));
+    pokemon1.HP -= round(10 * random(0.85, 1));
   }
   if (key === "a") {
-    charizard.HP -= round(15 * random(0.85, 1));
+    pokemon2.HP -= round(15 * random(0.85, 1));
   }
 }
 
@@ -128,12 +132,12 @@ function healthbox() {
   fill("black");
   textSize(60);
   textAlign(CENTER, CENTER);
-  text(pikachu.HP, windowWidth*(7/8), windowHeight/8);
+  text(pokemon1.HP, windowWidth*(7/8), windowHeight/8);
 
   fill("black");
   textSize(60);
   textAlign(CENTER, CENTER);
-  text(charizard.HP, windowWidth/8, windowHeight/8);
+  text(pokemon2.HP, windowWidth/8, windowHeight/8);
 }
 
 function mousePressed() {
