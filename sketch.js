@@ -8,30 +8,36 @@
 let diameter = 100;
 let charizardBIMG;
 let pikachuBIMG;
-let greninjaBIMG;
+let garchompBIMG;
 let lucarioBIMG;
 let charizardFIMG;
 let pikachuFIMG;
-let greninjaFIMG;
+let garchompFIMG;
 let lucarioFIMG;
 let bg;
 let pikachu;
 let charizard;
-let greninja;
+let garchomp;
 let lucario;
+let pokemons = [];
+let pokemon1;
+let pokemon2;
+let target;
 let crit;
 let STAB;
 let sE;
 let nVE;
+let damage;
+let moveType;
 
 function preload() {
   pikachuFIMG = loadImage("front sprites/pikachufront.png");
   pikachuBIMG = loadImage("back sprites/pikachuback.png");
   charizardFIMG = loadImage("front sprites/charizardfront.png");
   charizardBIMG = loadImage("back sprites/charizardback.png");
-  greninjaFIMG = loadImage("front sprites/greninjaFront.png");
-  greninjaBIMG = loadImage("back sprites/greninjaBack.png");
-  lucarioFIMG = loadImage("front sprite/lucariofront.png");
+  garchompFIMG = loadImage("front sprites/garchompfront.png");
+  garchompBIMG = loadImage("back sprites/garchompback.png");
+  lucarioFIMG = loadImage("front sprites/lucariofront.png");
   lucarioBIMG = loadImage("back sprites/lucarioback.png");
   bg = loadImage("other displays/pokemonbackground.png");
 }
@@ -56,8 +62,14 @@ function setup() {
   createCanvas(windowWidth, windowHeight);
   charizard = new pokemon(78, 84, 78, 109, 85, 100, "fire", "flying");
   pikachu = new pokemon(45, 80, 50, 75, 60, 120, "electric", "none");
-  greninja = new pokemon(72, 95, 67, 103, 71, 122, "water", "dark");
+  garchomp = new pokemon(108, 130, 95, 80, 85, 102, "dragon", "ground");
   lucario = new pokemon(70, 110, 70, 115, 70, 90, "fighting", "steel");
+  pokemons.push(lucario);
+  pokemons.push(pikachu);
+  pokemons.push(garchomp);
+  pokemons.push(charizard);
+  pokemon1 = random(pokemons);
+  pokemon2 = random(pokemons);
 }
 
 function draw() {
@@ -73,45 +85,11 @@ function draw() {
 // temporary function for damage
 function keyPressed() {
 
-  // crit = random(100);
-  // if (crit < 5) {
-  //   crit = 2;
-  // }
-  // else {
-  //   crit = 1;
-  // }
-
-  // // Checks to see if move is super effective on opposing pokemon
-  // if (sE === true) {
-  //   sE = 1.5;
-  // }
-  // else {
-  //   sE = 1;
-  // }
-  // // Checks to see if move is not every effective on opposing pokemon
-  // if (nVE === true) {
-  //   nVE = 0.5;
-  // }
-  // else {
-  //   nVE = 1;
-  // }
-
-  // // Checks for if move is same type as pokemon using move
-  // if (STAB === true) {
-  //   STAB = 1.5;
-  // }
-  // else {
-  //   STAB = 1;
-  // }
-
-
-  // ((((100/5) + 2)*this.damage*(charizard.ATK/pikachu.DEF)/50)+2)*random(0.85, 1)*STAB*sE*nVE;
-
   if (key === "d") {
-    pikachu.HP -= round(10 * random(0.85, 1));
+    pokemon1.HP -= round(10 * random(0.85, 1));
   }
   if (key === "a") {
-    charizard.HP -= round(15 * random(0.85, 1));
+    pokemon2.HP -= round(15 * random(0.85, 1));
   }
 }
 
@@ -128,12 +106,12 @@ function healthbox() {
   fill("black");
   textSize(60);
   textAlign(CENTER, CENTER);
-  text(pikachu.HP, windowWidth*(7/8), windowHeight/8);
+  text(pokemon2.HP, windowWidth*(7/8), windowHeight/8);
 
   fill("black");
   textSize(60);
   textAlign(CENTER, CENTER);
-  text(charizard.HP, windowWidth/8, windowHeight/8);
+  text(pokemon1.HP, windowWidth/8, windowHeight/8);
 }
 
 function mousePressed() {
@@ -146,19 +124,34 @@ function mousePressed() {
 
 function loadPokemon() {
   imageMode(CENTER);
-  // image(pikachuFIMG, windowWidth*(5.3/7), windowHeight/2, pikachuFIMG.width*5, pikachuFIMG.height*5);
-  // image(pikachuBIMG, windowWidth/4.5, windowHeight - pikachuBIMG.height*1.5, pikachuBIMG.width *5, pikachuBIMG.height*5);
-  // image(greninjaFIMG, windowWidth*(5.3/7), windowHeight/2, greninjaFIMG.width, greninjaFIMG.height);
-  // image(greninjaBIMG, windowWidth/4, windowHeight - greninjaBIMG.height/2.2, greninjaBIMG.width, greninjaBIMG.height);
-  // image(charizardBIMG, windowWidth/4.5, windowHeight - charizardBIMG.height*2.2, charizardBIMG.width *5, charizardBIMG.height*5);
-  image(lucarioFIMG, windowWidth*(5.3/7), windowHeight/2, lucarioFIMG.width*5, lucarioFIMG.height*5);
-  image(charizardBIMG, windowWidth/4.5, windowHeight - charizardBIMG.height*2.2, charizardBIMG.width *5, charizardBIMG.height*5);
- 
+  if (pokemon1 === lucario) {
+    image(lucarioBIMG, windowWidth/4.5, windowHeight - lucarioBIMG.height*2, lucarioBIMG.width *5, lucarioBIMG.height*5);
+  }
+  else if (pokemon1 === pikachu) {
+    image(pikachuBIMG, windowWidth/4.5, windowHeight - pikachuBIMG.height*1.5, pikachuBIMG.width *5, pikachuBIMG.height*5);
+  }
+  else if (pokemon1 === charizard) {
+    image(charizardBIMG, windowWidth/4.5, windowHeight - charizardBIMG.height*2.2, charizardBIMG.width *5, charizardBIMG.height*5);
+  }
+  else if (pokemon1 === garchomp) {
+    image(garchompBIMG, windowWidth/4, windowHeight - garchompBIMG.height*2, garchompBIMG.width*5, garchompBIMG.height*5);
+  }
+
+
+  if (pokemon2 === lucario) {
+    image(lucarioFIMG, windowWidth*(5.3/7), windowHeight/2.4, lucarioFIMG.width*5, lucarioFIMG.height*5);
+  }
+  else if (pokemon2 === pikachu) {
+    image(pikachuFIMG, windowWidth*(5.3/7), windowHeight/2, pikachuFIMG.width*5, pikachuFIMG.height*5);
+  }
+  else if (pokemon2 === charizard) {
+    image(charizardFIMG, windowWidth*(5.3/7), windowHeight/2.2, charizardFIMG.width*4, charizardFIMG.height*4);
+  }
+  else if (pokemon2 === garchomp) {
+    image(garchompFIMG, windowWidth*(5.3/7), windowHeight/2.5, garchompFIMG.width*5, garchompFIMG.height*5);
+  }
 }
 
-function dealDamage() {
-  
-}
 
 function kill() {
   if (pikachu.HP <= 0) {
@@ -166,5 +159,55 @@ function kill() {
   }
   if (charizard.HP <= 0) {
     charizard.HP = 0;
+  }
+}
+
+function typeChart() {
+  if (target === garchomp) {
+    if (moveType === "fairy" || moveType === "dragon") {
+      damage = damage *2;
+    }
+    else if (moveType === "ice") {
+      damage = damage *4;
+    }
+    else if (moveType === "poison" || moveType === "rock" || moveType === "fire") {
+      damage = damage *0.5;
+    }
+    else if (moveType === "electric") {
+      damage = 0;
+    }
+    else {
+      damage;
+    }
+  }
+
+  if (target === pikachu) {
+    if (moveType === "ground") {
+      damage = damage *2;
+    }
+    else if (moveType === "electric" || moveType === "steel" || moveType === "flying") {
+      damage = damage *0.5;
+    }
+    else {
+      damage;
+    }
+  }
+
+  if (target === charizard) {
+    if (moveType === "water" || moveType === "electric") {
+      damage = damage *2;
+    }
+    else if (moveType === "rock") {
+      damage = damage *4;
+    }
+    else if (moveType === "poison" || moveType === "rock" || moveType === "fire") {
+      damage = damage *0.5;
+    }
+    else if (moveType === "ground") {
+      damage = 0;
+    }
+    else {
+      damage;
+    }
   }
 }
