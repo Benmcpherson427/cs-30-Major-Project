@@ -61,7 +61,7 @@ class pokemon {
 function setup() {
   createCanvas(windowWidth, windowHeight);
   charizard = new pokemon(78, 84, 78, 109, 85, 100, "fire", "flying");
-  pikachu = new pokemon(45, 80, 50, 75, 60, 120, "electric", "none");
+  pikachu = new pokemon(75, 80, 70, 95, 60, 120, "electric", "none");
   garchomp = new pokemon(108, 130, 95, 80, 85, 102, "dragon", "ground");
   lucario = new pokemon(70, 110, 70, 115, 70, 90, "fighting", "steel");
   pokemons.push(lucario);
@@ -69,6 +69,12 @@ function setup() {
   pokemons.push(garchomp);
   pokemons.push(charizard);
   pokemon1 = random(pokemons);
+  for (let pokeman of pokemons) {
+    if (pokeman === pokemon1) {
+      let theIndex = pokemons.indexOf(pokeman);
+      pokemons.splice(theIndex, 1);
+    }
+  }
   pokemon2 = random(pokemons);
 }
 
@@ -78,7 +84,7 @@ function draw() {
   loadPokemon();
   healthbox();
   kill();
-  // optionsBox();
+  optionsBox();
   
 }
 
@@ -93,14 +99,14 @@ function keyPressed() {
   }
 }
 
-// function optionsBox() {
-//   fill("red");
-//   rect(windowWidth*3/4, windowHeight*(3/4), windowWidth, windowHeight);
-//   fill("black");
-//   textSize(60);
-//   textAlign(CENTER, CENTER);
-//   text("BATTLE", windowWidth*(7/8), windowHeight*(7/8));
-// }
+function optionsBox() {
+  fill("red");
+  rect(windowWidth*5/8, windowHeight*(3/4), windowWidth, windowHeight);
+  fill("black");
+  textSize(60);
+  textAlign(CENTER, CENTER);
+  text("BATTLE", windowWidth*(13/16), windowHeight*(7/8));
+}
 
 function healthbox() {
   fill("black");
@@ -118,7 +124,7 @@ function mousePressed() {
   console.log(mouseX, mouseY);
   if (mouseX >= 1200 && mouseX <= 1600 && mouseY >= 570 && mouseY <= 765) {
     fill(200);
-    rect(windowWidth*3/4, windowHeight*(3/4), windowWidth, windowHeight);
+    rect(windowWidth*5/8, windowHeight*(3/4), windowWidth, windowHeight);
   }
 }
 
@@ -154,60 +160,63 @@ function loadPokemon() {
 
 
 function kill() {
-  if (pikachu.HP <= 0) {
-    pikachu.HP = 0;
+  if (pokemon1.HP <= 0) {
+    pokemon1.HP = 0;
   }
-  if (charizard.HP <= 0) {
-    charizard.HP = 0;
-  }
-}
-
-function typeChart() {
-  if (target === garchomp) {
-    if (moveType === "fairy" || moveType === "dragon") {
-      damage = damage *2;
-    }
-    else if (moveType === "ice") {
-      damage = damage *4;
-    }
-    else if (moveType === "poison" || moveType === "rock" || moveType === "fire") {
-      damage = damage *0.5;
-    }
-    else if (moveType === "electric") {
-      damage = 0;
-    }
-    else {
-      damage;
-    }
-  }
-
-  if (target === pikachu) {
-    if (moveType === "ground") {
-      damage = damage *2;
-    }
-    else if (moveType === "electric" || moveType === "steel" || moveType === "flying") {
-      damage = damage *0.5;
-    }
-    else {
-      damage;
-    }
-  }
-
-  if (target === charizard) {
-    if (moveType === "water" || moveType === "electric") {
-      damage = damage *2;
-    }
-    else if (moveType === "rock") {
-      damage = damage *4;
-    }
-    else if (moveType === "poison" || moveType === "rock" || moveType === "fire") {
-      damage = damage *0.5;
-    }
-    else if (moveType === "ground") {
-      damage = 0;
-    }
-    else {
-      damage;
-    }
+  if (pokemon2.HP <= 0) {
+    pokemon2.HP = 0;
+  
+    fill(220);
+    rect(windowWidth/4, windowHeight/4, windowWidth/2, windowHeight/2);
   }
 }
+
+// function typeChart() {
+//   if (target === garchomp) {
+//     if (moveType === "fairy" || moveType === "dragon") {
+//       damage = damage *2;
+//     }
+//     else if (moveType === "ice") {
+//       damage = damage *4;
+//     }
+//     else if (moveType === "poison" || moveType === "rock" || moveType === "fire") {
+//       damage = damage *0.5;
+//     }
+//     else if (moveType === "electric") {
+//       damage = 0;
+//     }
+//     else {
+//       damage;
+//     }
+//   }
+
+//   if (target === pikachu) {
+//     if (moveType === "ground") {
+//       damage = damage *2;
+//     }
+//     else if (moveType === "electric" || moveType === "steel" || moveType === "flying") {
+//       damage = damage *0.5;
+//     }
+//     else {
+//       damage;
+//     }
+//   }
+
+//   if (target === charizard) {
+//     if (moveType === "water" || moveType === "electric") {
+//       damage = damage *2;
+//     }
+//     else if (moveType === "rock") {
+//       damage = damage *4;
+//     }
+//     else if (moveType === "poison" || moveType === "rock" || moveType === "fire") {
+//       damage = damage *0.5;
+//     }
+//     else if (moveType === "ground") {
+//       damage = 0;
+//     }
+//     else {
+//       damage;
+//     }
+//   }
+// }

@@ -4,7 +4,7 @@
 A Pokemon battle simulator
 
 ## Needs to Have List
-- 2 pokemon to give the player randomly
+- 4 pokemon to give the player randomly
 - Moves for each pokemon
 - Types interactions
 - A start screen
