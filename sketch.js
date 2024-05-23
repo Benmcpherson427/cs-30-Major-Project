@@ -15,6 +15,7 @@ let pikachuFIMG;
 let garchompFIMG;
 let lucarioFIMG;
 let bg;
+let startScreen;
 let pikachu;
 let charizard;
 let garchomp;
@@ -29,6 +30,7 @@ let sE;
 let nVE;
 let damage;
 let moveType;
+let state;
 
 function preload() {
   pikachuFIMG = loadImage("front sprites/pikachufront.png");
@@ -40,6 +42,7 @@ function preload() {
   lucarioFIMG = loadImage("front sprites/lucariofront.png");
   lucarioBIMG = loadImage("back sprites/lucarioback.png");
   bg = loadImage("other displays/pokemonbackground.png");
+  startScreen = loadImage("other displays")
 }
 
 
@@ -76,9 +79,13 @@ function setup() {
     }
   }
   pokemon2 = random(pokemons);
+  state = "opening";
 }
 
 function draw() {
+  if (state === "opening") {
+
+  }
   background(255);
   image(bg, windowWidth/2, windowHeight/2, windowWidth, windowHeight);
   loadPokemon();
@@ -162,12 +169,23 @@ function loadPokemon() {
 function kill() {
   if (pokemon1.HP <= 0) {
     pokemon1.HP = 0;
+    fill(220);
+    rect(windowWidth/4, windowHeight/4, windowWidth/2, windowHeight/2);
+    fill(0);
+    textAlign(CENTER, CENTER);
+    text("Computer wins", windowWidth/2, windowHeight/2);
   }
   if (pokemon2.HP <= 0) {
     pokemon2.HP = 0;
+
+    
   
     fill(220);
     rect(windowWidth/4, windowHeight/4, windowWidth/2, windowHeight/2);
+    fill(0);
+    textAlign(CENTER, CENTER);
+    text("Player wins", windowWidth/2, windowHeight/2);
+
   }
 }
 
