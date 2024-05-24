@@ -42,7 +42,7 @@ function preload() {
   lucarioFIMG = loadImage("front sprites/lucariofront.png");
   lucarioBIMG = loadImage("back sprites/lucarioback.png");
   bg = loadImage("other displays/pokemonbackground.png");
-  startScreen = loadImage("other displays")
+  startScreen = loadImage("other displays/start screen.png");
 }
 
 
@@ -84,15 +84,25 @@ function setup() {
 
 function draw() {
   if (state === "opening") {
-
+    image(startScreen, 0, 0, windowWidth, windowHeight);
+    if (key === " ") {
+      state = "battle";
+    }
   }
-  background(255);
-  image(bg, windowWidth/2, windowHeight/2, windowWidth, windowHeight);
-  loadPokemon();
-  healthbox();
-  kill();
-  optionsBox();
-  
+  if (state === "battle") {
+    image(bg, windowWidth/2, windowHeight/2, windowWidth, windowHeight);
+    loadPokemon();
+    healthbox();
+    kill();
+    optionsBox();
+  }
+  if (state === "moves") {
+    image(bg, windowWidth/2, windowHeight/2, windowWidth, windowHeight);
+    loadPokemon();
+    healthbox();
+    kill();
+    moveset();
+  }
 }
 
 // temporary function for damage
@@ -115,6 +125,18 @@ function optionsBox() {
   text("BATTLE", windowWidth*(13/16), windowHeight*(7/8));
 }
 
+function moveset() {
+  fill("red");
+  rect(windowWidth*(5/8), windowHeight*(3/4), windowWidth*(13/16), windowHeight*(7/8));
+  fill("blue");
+  rect(windowWidth*(13/16), windowHeight*(3/4), windowWidth, windowHeight*(7/8));
+  fill("yellow");
+  rect(windowWidth*(5/8), windowHeight*(7/8), windowWidth*(13/16), windowHeight*(3/4));
+  fill("green");
+  rect(windowWidth*(13/16), windowHeight*(7/8), windowWidth*(13/16), windowHeight*(3/4));
+
+}
+
 function healthbox() {
   fill("black");
   textSize(60);
@@ -129,9 +151,8 @@ function healthbox() {
 
 function mousePressed() {
   console.log(mouseX, mouseY);
-  if (mouseX >= 1200 && mouseX <= 1600 && mouseY >= 570 && mouseY <= 765) {
-    fill(200);
-    rect(windowWidth*5/8, windowHeight*(3/4), windowWidth, windowHeight);
+  if (mouseX >= windowWidth*(5/8) && mouseX <= windowWidth && mouseY >= windowHeight*(3/4) && mouseY <= windowHeight) {
+    state = "moves";
   }
 }
 
