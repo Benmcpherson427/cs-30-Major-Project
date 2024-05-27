@@ -126,14 +126,15 @@ function optionsBox() {
 }
 
 function moveset() {
+  rectMode(CORNERS);
   fill("red");
   rect(windowWidth*(5/8), windowHeight*(3/4), windowWidth*(13/16), windowHeight*(7/8));
   fill("blue");
   rect(windowWidth*(13/16), windowHeight*(3/4), windowWidth, windowHeight*(7/8));
   fill("yellow");
-  rect(windowWidth*(5/8), windowHeight*(7/8), windowWidth*(13/16), windowHeight*(3/4));
+  rect(windowWidth*(5/8), windowHeight*(7/8), windowWidth*(13/16), windowHeight);
   fill("green");
-  rect(windowWidth*(13/16), windowHeight*(7/8), windowWidth*(13/16), windowHeight*(3/4));
+  rect(windowWidth*(13/16), windowHeight*(7/8), windowWidth, windowHeight);
 
 }
 
@@ -150,9 +151,14 @@ function healthbox() {
 }
 
 function mousePressed() {
-  console.log(mouseX, mouseY);
   if (mouseX >= windowWidth*(5/8) && mouseX <= windowWidth && mouseY >= windowHeight*(3/4) && mouseY <= windowHeight) {
     state = "moves";
+  }
+
+  if (pokemon1 === lucario && state === "moves") {
+    if(mouseX >= windowWidth*(5/8) && mouseX <= windowWidth*(13/16) && mouseY >= windowHeight*(3/4) && mouseY <= windowHeight*(7/8)) {
+      pokemon2.hp -= round((80 * (lucario.SPA/pokemon2.SPD) * random(0.85,1))/2);
+    }
   }
 }
 
@@ -198,9 +204,6 @@ function kill() {
   }
   if (pokemon2.HP <= 0) {
     pokemon2.HP = 0;
-
-    
-  
     fill(220);
     rect(windowWidth/4, windowHeight/4, windowWidth/2, windowHeight/2);
     fill(0);
