@@ -10,7 +10,7 @@ A Pokemon battle simulator
 - A start screen
 - sound effects and background noise
 - HP, ATK, DEF, SPD, SPA, SPE stats
-- Text boxes saying what moved was used, if the move missed, if the pokemon fainted
+
 
 
 
@@ -25,3 +25,4 @@ A Pokemon battle simulator
 - attack animations
 - animated sprites
 - Menu with game options
+- Text boxes saying what moved was used, if the move missed, if the pokemon fainted

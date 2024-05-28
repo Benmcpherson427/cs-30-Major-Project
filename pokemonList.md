@@ -12,7 +12,7 @@ Name (HP, ATK, DEF, SPA, SPD, SPE)
     - Wild Charge
     - Iron Tail
     - Play Rough
-- Greninja (72, 95, 67, 103, 71, 122)
+- Garchomp (108, 95, 67, 103, 71, 102)
     - Hydro Pump
     - Dark Pulse
     - Gunk Shot

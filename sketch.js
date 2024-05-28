@@ -5,7 +5,7 @@
 // Extra for Experts:
 // - describe what you did to take this project "above and beyond"
 
-let diameter = 100;
+let battleMusic;
 let charizardBIMG;
 let pikachuBIMG;
 let garchompBIMG;
@@ -43,6 +43,7 @@ function preload() {
   lucarioBIMG = loadImage("back sprites/lucarioback.png");
   bg = loadImage("other displays/pokemonbackground.png");
   startScreen = loadImage("other displays/start screen.png");
+  battleMusic = loadSound("other displays/sounds/Battle! Champion-   Pokémon Diamond & Pearl Music Extended [ ezmp3.cc ].mp3");
 }
 
 
@@ -90,6 +91,7 @@ function draw() {
     }
   }
   if (state === "battle") {
+    battleMusic.play();
     image(bg, windowWidth/2, windowHeight/2, windowWidth, windowHeight);
     loadPokemon();
     healthbox();
@@ -157,7 +159,8 @@ function mousePressed() {
 
   if (pokemon1 === lucario && state === "moves") {
     if(mouseX >= windowWidth*(5/8) && mouseX <= windowWidth*(13/16) && mouseY >= windowHeight*(3/4) && mouseY <= windowHeight*(7/8)) {
-      pokemon2.hp -= round((80 * (lucario.SPA/pokemon2.SPD) * random(0.85,1))/2);
+      circle(windowWidth/2, windowHeight/2, 100);
+      // pokemon2.hp -= round(80 * (lucario.SPA/pokemon2.SPD) * random(0.85,1))/2;
     }
   }
 }
