@@ -1,6 +1,6 @@
-// Project Title
-// Your Name
-// Date
+// CS-30 Major Project - Pokemon Battle simulator
+// Ben McPherson
+// May 1st - June 14th
 //
 // Extra for Experts:
 // - describe what you did to take this project "above and beyond"
@@ -43,7 +43,7 @@ function preload() {
   lucarioBIMG = loadImage("back sprites/lucarioback.png");
   bg = loadImage("other displays/pokemonbackground.png");
   startScreen = loadImage("other displays/start screen.png");
-  battleMusic = loadSound("other displays/sounds/Battle! Champion-   Pokémon Diamond & Pearl Music Extended [ ezmp3.cc ].mp3");
+  battleMusic = loadSound("other displays/sounds/CynthiaBattleMusic.mp3");
 }
 
 
@@ -87,11 +87,11 @@ function draw() {
   if (state === "opening") {
     image(startScreen, 0, 0, windowWidth, windowHeight);
     if (key === " ") {
+      battleMusic.loop();
       state = "battle";
     }
   }
   if (state === "battle") {
-    battleMusic.play();
     image(bg, windowWidth/2, windowHeight/2, windowWidth, windowHeight);
     loadPokemon();
     healthbox();
@@ -153,14 +153,68 @@ function healthbox() {
 }
 
 function mousePressed() {
-  if (mouseX >= windowWidth*(5/8) && mouseX <= windowWidth && mouseY >= windowHeight*(3/4) && mouseY <= windowHeight) {
+  if (mouseX >= windowWidth*(5/8) && mouseX <= windowWidth && mouseY >= windowHeight*(3/4) && mouseY <= windowHeight && state === "battle") {
     state = "moves";
   }
 
-  if (pokemon1 === lucario && state === "moves") {
+  else if (pokemon1 === lucario && state === "moves") {
     if(mouseX >= windowWidth*(5/8) && mouseX <= windowWidth*(13/16) && mouseY >= windowHeight*(3/4) && mouseY <= windowHeight*(7/8)) {
-      circle(windowWidth/2, windowHeight/2, 100);
-      // pokemon2.hp -= round(80 * (lucario.SPA/pokemon2.SPD) * random(0.85,1))/2;
+      pokemon2.HP -= round(80 * (lucario.SPA/(pokemon2.SPD*2)) * random(0.85,1)/2);
+      console.log("test");
+    }
+    else if(mouseX >= windowWidth*(13/16) && mouseX <= windowWidth && mouseY >= windowHeight*(3/4) && mouseY <= windowHeight*(7/8)) {
+      pokemon2.HP -= round(80 * (lucario.SPA/(pokemon2.SPD*2)) * random(0.85,1)/2);
+    }
+    else if(mouseX >= windowWidth*(5/8) && mouseX <= windowWidth*(13/16) && mouseY >= windowHeight*(7/8) && mouseY <= windowHeight) {
+      pokemon2.HP -= round(80 * (lucario.ATK/(pokemon2.DEF*2)) * random(0.85,1)/2);
+    }
+    else if(mouseX >= windowWidth*(13/16) && mouseX <= windowWidth && mouseY >= windowHeight*(3/4) && mouseY <= windowHeight) {
+      pokemon2.HP -= round(80 * (lucario.SPA/(pokemon2.SPD*2)) * random(0.85,1)/2);
+    }
+  }
+  else if (pokemon1 === garchomp && state === "moves") {
+    if(mouseX >= windowWidth*(5/8) && mouseX <= windowWidth*(13/16) && mouseY >= windowHeight*(3/4) && mouseY <= windowHeight*(7/8)) {
+      pokemon2.HP -= round(80 * (garchomp.ATK/(pokemon2.DEF*2)) * random(0.85,1)/2);
+      console.log("test");
+    }
+    else if(mouseX >= windowWidth*(13/16) && mouseX <= windowWidth && mouseY >= windowHeight*(3/4) && mouseY <= windowHeight*(7/8)) {
+      pokemon2.HP -= round(100 * (garchomp.ATK/(pokemon2.DEF*2)) * random(0.85,1)/2);
+    }
+    else if(mouseX >= windowWidth*(5/8) && mouseX <= windowWidth*(13/16) && mouseY >= windowHeight*(7/8) && mouseY <= windowHeight) {
+      pokemon2.HP -= round(80 * (garchomp.ATK/(pokemon2.DEF*2)) * random(0.85,1)/2);
+    }
+    else if(mouseX >= windowWidth*(13/16) && mouseX <= windowWidth && mouseY >= windowHeight*(3/4) && mouseY <= windowHeight) {
+      pokemon2.HP -= round(100 * (garchomp.ATK/(pokemon2.ATK*2)) * random(0.85,1)/2);
+    }
+  }
+  else if (pokemon1 === pikachu && state === "moves") {
+    if(mouseX >= windowWidth*(5/8) && mouseX <= windowWidth*(13/16) && mouseY >= windowHeight*(3/4) && mouseY <= windowHeight*(7/8)) {
+      pokemon2.HP -= round(80 * (pikachu.SPA/(pokemon2.SPD*2)) * random(0.85,1)/2);
+      console.log("test");
+    }
+    else if(mouseX >= windowWidth*(13/16) && mouseX <= windowWidth && mouseY >= windowHeight*(3/4) && mouseY <= windowHeight*(7/8)) {
+      pokemon2.HP -= round(120 * (pikachu.ATK/(pokemon2.DEF*2)) * random(0.85,1)/2);
+    }
+    else if(mouseX >= windowWidth*(5/8) && mouseX <= windowWidth*(13/16) && mouseY >= windowHeight*(7/8) && mouseY <= windowHeight) {
+      pokemon2.HP -= round(90 * (pikachu.ATK/(pokemon2.DEF*2)) * random(0.85,1)/2);
+    }
+    else if(mouseX >= windowWidth*(13/16) && mouseX <= windowWidth && mouseY >= windowHeight*(3/4) && mouseY <= windowHeight) {
+      pokemon2.HP -= round(90 * (pikachu.ATK/(pokemon2.DEF*2)) * random(0.85,1)/2);
+    }
+  }
+  else if (pokemon1 === charizard && state === "moves") {
+    if(mouseX >= windowWidth*(5/8) && mouseX <= windowWidth*(13/16) && mouseY >= windowHeight*(3/4) && mouseY <= windowHeight*(7/8)) {
+      pokemon2.HP -= round(90 * (charizard.SPA/(pokemon2.SPD*2)) * random(0.85,1)/2);
+      console.log("test");
+    }
+    else if(mouseX >= windowWidth*(13/16) && mouseX <= windowWidth && mouseY >= windowHeight*(3/4) && mouseY <= windowHeight*(7/8)) {
+      pokemon2.HP -= round(70 * (charizard.ATK/(pokemon2.DEF*2)) * random(0.85,1)/2);
+    }
+    else if(mouseX >= windowWidth*(5/8) && mouseX <= windowWidth*(13/16) && mouseY >= windowHeight*(7/8) && mouseY <= windowHeight) {
+      pokemon2.HP -= round(80 * (charizard.SPA/(pokemon2.SPD*2)) * random(0.85,1)/2);
+    }
+    else if(mouseX >= windowWidth*(13/16) && mouseX <= windowWidth && mouseY >= windowHeight*(3/4) && mouseY <= windowHeight) {
+      pokemon2.HP -= round(75 * (charizard.ATK/(pokemon2.DEF*2)) * random(0.85,1)/2);
     }
   }
 }
