@@ -5,12 +5,14 @@
 // Extra for Experts:
 // - describe what you did to take this project "above and beyond"
 
+
+
 let battleMusic;
 let charizardBIMG;
 let pikachuBIMG;
 let garchompBIMG;
 let lucarioBIMG;
-let charizardFIMG;
+let charizardFIMG
 let pikachuFIMG;
 let garchompFIMG;
 let lucarioFIMG;
@@ -152,24 +154,77 @@ function healthbox() {
   text(pokemon1.HP, windowWidth/8, windowHeight/8);
 }
 
+function opponentMove() {
+  if (pokemon2 === lucario) {
+    pokemon1.HP -= random(round(80 * (pokemon2.SPA/(pokemon1.SPD*2)) * random(0.85,1)/2), round(80 * (pokemon2.SPA/(pokemon1.SPD*2)) * random(0.85,1)/2),  
+                          round(80 * (pokemon2.SPA/(pokemon1.SPD*2)) * random(0.85,1)/2), round(80 * (pokemon2.ATK/(pokemon1.DEF*2)) * random(0.85,1)/2));
+  }
+  else if (pokemon2 === charizard) {
+    pokemon1.HP -= random(round(75 * (pokemon2.ATK/(pokemon1.DEF*2)) * random(0.85,1)/2), round(70 * (pokemon2.ATK/(pokemon1.DEF*2)) * random(0.85,1)/2),  
+                          round(90 * (pokemon2.SPA/(pokemon1.SPD*2)) * random(0.85,1)/2), round(80 * (pokemon2.SPA/(pokemon1.SPD*2)) * random(0.85,1)/2));
+  }
+  else if (pokemon2 === garchomp) {
+    pokemon1.HP -= random(round(80 * (pokemon2.ATK/(pokemon1.DEF*2)) * random(0.85,1)/2), round(100 * (pokemon2.ATK/(pokemon1.DEF*2)) * random(0.85,1)/2),  
+                          round(80 * (pokemon2.ATK/(pokemon1.DEF*2)) * random(0.85,1)/2), round(100 * (pokemon2.ATK/(pokemon1.DEF*2)) * random(0.85,1)/2));
+  }
+  else if (pokemon2 === pikachu) {
+    pokemon1.HP -= random(round(80 * (pokemon2.SPA/(pokemon1.SPD*2)) * random(0.85,1)/2), round(120 * (pokemon2.ATK/(pokemon1.DEF*2)) * random(0.85,1)/2),  
+                          round(90 * (pokemon2.ATK/(pokemon1.DEF*2)) * random(0.85,1)/2), round(90 * (pokemon2.ATK/(pokemon1.DEF*2)) * random(0.85,1)/2));
+  }
+}
+
 function mousePressed() {
   if (mouseX >= windowWidth*(5/8) && mouseX <= windowWidth && mouseY >= windowHeight*(3/4) && mouseY <= windowHeight && state === "battle") {
     state = "moves";
   }
 
+  
+  // If the player has lucario and they select a move
   else if (pokemon1 === lucario && state === "moves") {
     if(mouseX >= windowWidth*(5/8) && mouseX <= windowWidth*(13/16) && mouseY >= windowHeight*(3/4) && mouseY <= windowHeight*(7/8)) {
-      pokemon2.HP -= round(80 * (lucario.SPA/(pokemon2.SPD*2)) * random(0.85,1)/2);
-      console.log("test");
+
+      if (lucario.SPE > pokemon2.SPE) { // If Lucario is faster - move 1
+        pokemon2.HP -= round(80 * (lucario.SPA/(pokemon2.SPD*2)) * random(0.85,1)/2);
+        opponentMove();
+      }
+      else { // If Lucario is slower - move 1
+        opponentMove();
+        pokemon2.HP -= round(80 * (lucario.SPA/(pokemon2.SPD*2)) * random(0.85,1)/2);
+      }
     }
     else if(mouseX >= windowWidth*(13/16) && mouseX <= windowWidth && mouseY >= windowHeight*(3/4) && mouseY <= windowHeight*(7/8)) {
-      pokemon2.HP -= round(80 * (lucario.SPA/(pokemon2.SPD*2)) * random(0.85,1)/2);
+
+      if (lucario.SPE > pokemon2.SPE) {
+        pokemon2.HP -= round(80 * (lucario.SPA/(pokemon2.SPD*2)) * random(0.85,1)/2);
+        opponentMove();
+      }
+      else {
+        opponentMove();
+        pokemon2.HP -= round(80 * (lucario.SPA/(pokemon2.SPD*2)) * random(0.85,1)/2);
+      }
     }
     else if(mouseX >= windowWidth*(5/8) && mouseX <= windowWidth*(13/16) && mouseY >= windowHeight*(7/8) && mouseY <= windowHeight) {
-      pokemon2.HP -= round(80 * (lucario.ATK/(pokemon2.DEF*2)) * random(0.85,1)/2);
+
+      if (lucario.SPE > pokemon2.SPE) {
+        pokemon2.HP -= round(80 * (lucario.ATK/(pokemon2.DEF*2)) * random(0.85,1)/2);
+        opponentMove();
+      }
+      else {
+        opponentMove();
+        pokemon2.HP -= round(80 * (lucario.ATK/(pokemon2.DEF*2)) * random(0.85,1)/2);
+      }
+        
     }
     else if(mouseX >= windowWidth*(13/16) && mouseX <= windowWidth && mouseY >= windowHeight*(3/4) && mouseY <= windowHeight) {
-      pokemon2.HP -= round(80 * (lucario.SPA/(pokemon2.SPD*2)) * random(0.85,1)/2);
+
+      if (lucario.SPE > pokemon2.SPE) {
+        pokemon2.HP -= round(80 * (lucario.SPA/(pokemon2.SPD*2)) * random(0.85,1)/2);
+        opponentMove();
+      }
+      else {
+        opponentMove();
+        pokemon2.HP -= round(80 * (lucario.SPA/(pokemon2.SPD*2)) * random(0.85,1)/2);
+      }    
     }
   }
   else if (pokemon1 === garchomp && state === "moves") {

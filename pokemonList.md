@@ -12,11 +12,11 @@ Name (HP, ATK, DEF, SPA, SPD, SPE)
     - Wild Charge
     - Iron Tail
     - Play Rough
-- Garchomp (108, 95, 67, 103, 71, 102)
-    - Hydro Pump
-    - Dark Pulse
-    - Gunk Shot
-    - Ice Beam
+- Garchomp (108, 130, 95, 80, 85, 102,)
+    - Crunch
+    - Dragon Claw
+    - Earthquake
+    - Stone Edge
 - Lucario (70, 110, 70, 115, 70, 90)
     - Aura Sphere
     - Flash Cannon
