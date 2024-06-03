@@ -18,6 +18,7 @@ let garchompFIMG;
 let lucarioFIMG;
 let bg;
 let startScreen;
+let endScreen;
 let pikachu;
 let charizard;
 let garchomp;
@@ -46,6 +47,7 @@ function preload() {
   bg = loadImage("other displays/pokemonbackground.png");
   startScreen = loadImage("other displays/start screen.png");
   battleMusic = loadSound("other displays/sounds/CynthiaBattleMusic.mp3");
+  endScreen = loadImage("other displays/end screen.png");
 }
 
 
@@ -107,6 +109,19 @@ function draw() {
     kill();
     moveset();
   }
+  if (state === "end1") {
+    image(endScreen, windowWidth/2, windowHeight/2, windowWidth, windowHeight);
+    fill(0);
+    textAlign(CENTER, CENTER);
+    text("Computer wins", windowWidth/2, windowHeight/2);
+  }
+  if (state === "end2") {
+    image(endScreen, windowWidth/2, windowHeight/2, windowWidth, windowHeight);
+    fill(0);
+    textAlign(CENTER, CENTER);
+    text("Player wins", windowWidth/2, windowHeight/2);
+
+  }
 }
 
 // temporary function for damage
@@ -156,20 +171,20 @@ function healthbox() {
 
 function opponentMove() {
   if (pokemon2 === lucario) {
-    pokemon1.HP -= random(round(80 * (pokemon2.SPA/(pokemon1.SPD*2)) * random(0.85,1)/2), round(80 * (pokemon2.SPA/(pokemon1.SPD*2)) * random(0.85,1)/2),  
-                          round(80 * (pokemon2.SPA/(pokemon1.SPD*2)) * random(0.85,1)/2), round(80 * (pokemon2.ATK/(pokemon1.DEF*2)) * random(0.85,1)/2));
+    pokemon1.HP -= round(random(round(80 * (pokemon2.SPA/(pokemon1.SPD*2)) * random(0.85,1)/2), round(80 * (pokemon2.SPA/(pokemon1.SPD*2)) * random(0.85,1)/2),  
+                          round(80 * (pokemon2.SPA/(pokemon1.SPD*2)) * random(0.85,1)/2), round(80 * (pokemon2.ATK/(pokemon1.DEF*2)) * random(0.85,1)/2)));
   }
   else if (pokemon2 === charizard) {
-    pokemon1.HP -= random(round(75 * (pokemon2.ATK/(pokemon1.DEF*2)) * random(0.85,1)/2), round(70 * (pokemon2.ATK/(pokemon1.DEF*2)) * random(0.85,1)/2),  
-                          round(90 * (pokemon2.SPA/(pokemon1.SPD*2)) * random(0.85,1)/2), round(80 * (pokemon2.SPA/(pokemon1.SPD*2)) * random(0.85,1)/2));
+    pokemon1.HP -= round(random(round(75 * (pokemon2.ATK/(pokemon1.DEF*2)) * random(0.85,1)/2), round(70 * (pokemon2.ATK/(pokemon1.DEF*2)) * random(0.85,1)/2),  
+                          round(90 * (pokemon2.SPA/(pokemon1.SPD*2)) * random(0.85,1)/2), round(80 * (pokemon2.SPA/(pokemon1.SPD*2)) * random(0.85,1)/2)));
   }
   else if (pokemon2 === garchomp) {
-    pokemon1.HP -= random(round(80 * (pokemon2.ATK/(pokemon1.DEF*2)) * random(0.85,1)/2), round(100 * (pokemon2.ATK/(pokemon1.DEF*2)) * random(0.85,1)/2),  
-                          round(80 * (pokemon2.ATK/(pokemon1.DEF*2)) * random(0.85,1)/2), round(100 * (pokemon2.ATK/(pokemon1.DEF*2)) * random(0.85,1)/2));
+    pokemon1.HP -= round(random(round(80 * (pokemon2.ATK/(pokemon1.DEF*2)) * random(0.85,1)/2), round(100 * (pokemon2.ATK/(pokemon1.DEF*2)) * random(0.85,1)/2),  
+                          round(80 * (pokemon2.ATK/(pokemon1.DEF*2)) * random(0.85,1)/2), round(100 * (pokemon2.ATK/(pokemon1.DEF*2)) * random(0.85,1)/2)));
   }
   else if (pokemon2 === pikachu) {
-    pokemon1.HP -= random(round(80 * (pokemon2.SPA/(pokemon1.SPD*2)) * random(0.85,1)/2), round(120 * (pokemon2.ATK/(pokemon1.DEF*2)) * random(0.85,1)/2),  
-                          round(90 * (pokemon2.ATK/(pokemon1.DEF*2)) * random(0.85,1)/2), round(90 * (pokemon2.ATK/(pokemon1.DEF*2)) * random(0.85,1)/2));
+    pokemon1.HP -= round(random(round(80 * (pokemon2.SPA/(pokemon1.SPD*2)) * random(0.85,1)/2), round(120 * (pokemon2.ATK/(pokemon1.DEF*2)) * random(0.85,1)/2),  
+                          round(90 * (pokemon2.ATK/(pokemon1.DEF*2)) * random(0.85,1)/2), round(90 * (pokemon2.ATK/(pokemon1.DEF*2)) * random(0.85,1)/2)));
   }
 }
 
@@ -181,6 +196,7 @@ function mousePressed() {
   
   // If the player has lucario and they select a move
   else if (pokemon1 === lucario && state === "moves") {
+    // if move 1 is selected
     if(mouseX >= windowWidth*(5/8) && mouseX <= windowWidth*(13/16) && mouseY >= windowHeight*(3/4) && mouseY <= windowHeight*(7/8)) {
 
       if (lucario.SPE > pokemon2.SPE) { // If Lucario is faster - move 1
@@ -192,84 +208,194 @@ function mousePressed() {
         pokemon2.HP -= round(80 * (lucario.SPA/(pokemon2.SPD*2)) * random(0.85,1)/2);
       }
     }
-    else if(mouseX >= windowWidth*(13/16) && mouseX <= windowWidth && mouseY >= windowHeight*(3/4) && mouseY <= windowHeight*(7/8)) {
-
-      if (lucario.SPE > pokemon2.SPE) {
+    // if move 2 is selected
+    else if(mouseX >= windowWidth*(13/16) && mouseX <= windowWidth && mouseY >= windowHeight*(3/4) && mouseY <= windowHeight*(7/8)) { 
+      if (lucario.SPE > pokemon2.SPE) { // If Lucario is faster - move 2
         pokemon2.HP -= round(80 * (lucario.SPA/(pokemon2.SPD*2)) * random(0.85,1)/2);
         opponentMove();
       }
-      else {
+      else { // If Lucario is slower - move 2
         opponentMove();
         pokemon2.HP -= round(80 * (lucario.SPA/(pokemon2.SPD*2)) * random(0.85,1)/2);
       }
     }
-    else if(mouseX >= windowWidth*(5/8) && mouseX <= windowWidth*(13/16) && mouseY >= windowHeight*(7/8) && mouseY <= windowHeight) {
+    // if move 3 is selected
+    else if(mouseX >= windowWidth*(5/8) && mouseX <= windowWidth*(13/16) && mouseY >= windowHeight*(7/8) && mouseY <= windowHeight) { 
 
-      if (lucario.SPE > pokemon2.SPE) {
+      if (lucario.SPE > pokemon2.SPE) { // If Lucario is faster - move 3
         pokemon2.HP -= round(80 * (lucario.ATK/(pokemon2.DEF*2)) * random(0.85,1)/2);
         opponentMove();
       }
-      else {
+      else { // If Lucario is slower - move 3
         opponentMove();
         pokemon2.HP -= round(80 * (lucario.ATK/(pokemon2.DEF*2)) * random(0.85,1)/2);
       }
         
     }
+     // if move 4 is selected
     else if(mouseX >= windowWidth*(13/16) && mouseX <= windowWidth && mouseY >= windowHeight*(3/4) && mouseY <= windowHeight) {
 
-      if (lucario.SPE > pokemon2.SPE) {
+      if (lucario.SPE > pokemon2.SPE) { // If Lucario is faster - move 4
         pokemon2.HP -= round(80 * (lucario.SPA/(pokemon2.SPD*2)) * random(0.85,1)/2);
         opponentMove();
       }
-      else {
+      else { // If Lucario is slower - move 4
         opponentMove();
         pokemon2.HP -= round(80 * (lucario.SPA/(pokemon2.SPD*2)) * random(0.85,1)/2);
       }    
     }
   }
+  // If the player has Garchomp and they select a move
   else if (pokemon1 === garchomp && state === "moves") {
+    // if move 1 is selected
     if(mouseX >= windowWidth*(5/8) && mouseX <= windowWidth*(13/16) && mouseY >= windowHeight*(3/4) && mouseY <= windowHeight*(7/8)) {
-      pokemon2.HP -= round(80 * (garchomp.ATK/(pokemon2.DEF*2)) * random(0.85,1)/2);
-      console.log("test");
+
+      if (garchomp.SPE > pokemon2.SPE) { // If Garchomp is faster - move 1
+        pokemon2.HP -= round(80 * (garchomp.ATK/(pokemon2.DEF*2)) * random(0.85,1)/2);
+        opponentMove();
+      }
+      else { // If Garchomp is slower - move 1
+        opponentMove();
+        pokemon2.HP -= round(80 * (garchomp.ATK/(pokemon2.DEF*2)) * random(0.85,1)/2);
+      }
     }
-    else if(mouseX >= windowWidth*(13/16) && mouseX <= windowWidth && mouseY >= windowHeight*(3/4) && mouseY <= windowHeight*(7/8)) {
-      pokemon2.HP -= round(100 * (garchomp.ATK/(pokemon2.DEF*2)) * random(0.85,1)/2);
+    // if move 2 is selected
+    else if(mouseX >= windowWidth*(13/16) && mouseX <= windowWidth && mouseY >= windowHeight*(3/4) && mouseY <= windowHeight*(7/8)) { 
+      if (garchomp.SPE > pokemon2.SPE) { // If Garchomp is faster - move 2
+        pokemon2.HP -= round(80 * (garchomp.ATK/(pokemon2.DEF*2)) * random(0.85,1)/2);
+        opponentMove();
+      }
+      else { // If Garchomp is slower - move 2
+        opponentMove();
+        pokemon2.HP -= round(80 * (garchomp.ATK/(pokemon2.DEF*2)) * random(0.85,1)/2);      
+      }
     }
-    else if(mouseX >= windowWidth*(5/8) && mouseX <= windowWidth*(13/16) && mouseY >= windowHeight*(7/8) && mouseY <= windowHeight) {
-      pokemon2.HP -= round(80 * (garchomp.ATK/(pokemon2.DEF*2)) * random(0.85,1)/2);
+    // if move 3 is selected
+    else if(mouseX >= windowWidth*(5/8) && mouseX <= windowWidth*(13/16) && mouseY >= windowHeight*(7/8) && mouseY <= windowHeight) { 
+
+      if (garchomp.SPE > pokemon2.SPE) { // If Garchomp is faster - move 3
+        pokemon2.HP -= round(80 * (garchomp.ATK/(pokemon2.DEF*2)) * random(0.85,1)/2);
+        opponentMove();
+      }
+      else { // If Garchomp is slower - move 3
+        opponentMove();
+        pokemon2.HP -= round(80 * (garchomp.ATK/(pokemon2.DEF*2)) * random(0.85,1)/2);
+      }
+        
     }
+     // if move 4 is selected
     else if(mouseX >= windowWidth*(13/16) && mouseX <= windowWidth && mouseY >= windowHeight*(3/4) && mouseY <= windowHeight) {
-      pokemon2.HP -= round(100 * (garchomp.ATK/(pokemon2.ATK*2)) * random(0.85,1)/2);
+
+      if (garchomp.SPE > pokemon2.SPE) { // If Garchomp is faster - move 4
+        pokemon2.HP -= round(100 * (garchomp.ATK/(pokemon2.DEF*2)) * random(0.85,1)/2);
+        opponentMove();
+      }
+      else { // If Garchomp is slower - move 4
+        opponentMove();
+        pokemon2.HP -= round(100 * (garchomp.ATK/(pokemon2.DEF*2)) * random(0.85,1)/2);
+      }    
     }
   }
+  // If the player has Pikachu and they select a move
   else if (pokemon1 === pikachu && state === "moves") {
+    // if move 1 is selected
     if(mouseX >= windowWidth*(5/8) && mouseX <= windowWidth*(13/16) && mouseY >= windowHeight*(3/4) && mouseY <= windowHeight*(7/8)) {
-      pokemon2.HP -= round(80 * (pikachu.SPA/(pokemon2.SPD*2)) * random(0.85,1)/2);
-      console.log("test");
+
+      if (pikachu.SPE > pokemon2.SPE) { // If Pikachu is faster - move 1
+        pokemon2.HP -= round(80 * (pikachu.SPA/(pokemon2.SPD*2)) * random(0.85,1)/2);
+        opponentMove();
+      }
+      else { // If Pikachu is slower - move 1
+        opponentMove();
+        pokemon2.HP -= round(80 * (pikachu.SPA/(pokemon2.SPD*2)) * random(0.85,1)/2);
+      }
     }
-    else if(mouseX >= windowWidth*(13/16) && mouseX <= windowWidth && mouseY >= windowHeight*(3/4) && mouseY <= windowHeight*(7/8)) {
-      pokemon2.HP -= round(120 * (pikachu.ATK/(pokemon2.DEF*2)) * random(0.85,1)/2);
+    // if move 2 is selected
+    else if(mouseX >= windowWidth*(13/16) && mouseX <= windowWidth && mouseY >= windowHeight*(3/4) && mouseY <= windowHeight*(7/8)) { 
+      if (pikachu.SPE > pokemon2.SPE) { // If Pikachu is faster - move 2
+        pokemon2.HP -= round(120 * (pikachu.ATK/(pokemon2.DEF*2)) * random(0.85,1)/2);
+        opponentMove();
+      }
+      else { // If Pikachu is slower - move 2
+        opponentMove();
+        pokemon2.HP -= round(120 * (pikachu.ATK/(pokemon2.DEF*2)) * random(0.85,1)/2);      
+      }
     }
-    else if(mouseX >= windowWidth*(5/8) && mouseX <= windowWidth*(13/16) && mouseY >= windowHeight*(7/8) && mouseY <= windowHeight) {
-      pokemon2.HP -= round(90 * (pikachu.ATK/(pokemon2.DEF*2)) * random(0.85,1)/2);
+    // if move 3 is selected
+    else if(mouseX >= windowWidth*(5/8) && mouseX <= windowWidth*(13/16) && mouseY >= windowHeight*(7/8) && mouseY <= windowHeight) { 
+
+      if (pikachu.SPE > pokemon2.SPE) { // If Pikachu is faster - move 3
+        pokemon2.HP -= round(90 * (pikachu.ATK/(pokemon2.DEF*2)) * random(0.85,1)/2);
+        opponentMove();
+      }
+      else { // If Pikachu is slower - move 3
+        opponentMove();
+        pokemon2.HP -= round(90 * (pikachu.ATK/(pokemon2.DEF*2)) * random(0.85,1)/2);
+      }
+        
     }
+     // if move 4 is selected
     else if(mouseX >= windowWidth*(13/16) && mouseX <= windowWidth && mouseY >= windowHeight*(3/4) && mouseY <= windowHeight) {
-      pokemon2.HP -= round(90 * (pikachu.ATK/(pokemon2.DEF*2)) * random(0.85,1)/2);
+
+      if (pikachu.SPE > pokemon2.SPE) { // If Pikachu is faster - move 4
+        pokemon2.HP -= round(90 * (pikachu.ATK/(pokemon2.DEF*2)) * random(0.85,1)/2);
+        opponentMove();
+      }
+      else { // If Pikachu is slower - move 4
+        opponentMove();
+        pokemon2.HP -= round(90 * (pikachu.ATK/(pokemon2.DEF*2)) * random(0.85,1)/2);
+      }    
     }
   }
+  // If the player has Pikachu and they select a move
   else if (pokemon1 === charizard && state === "moves") {
+    // if move 1 is selected
     if(mouseX >= windowWidth*(5/8) && mouseX <= windowWidth*(13/16) && mouseY >= windowHeight*(3/4) && mouseY <= windowHeight*(7/8)) {
-      pokemon2.HP -= round(90 * (charizard.SPA/(pokemon2.SPD*2)) * random(0.85,1)/2);
-      console.log("test");
+
+      if (charizard.SPE > pokemon2.SPE) { // If Pikachu is faster - move 1
+        pokemon2.HP -= round(90 * (charizard.SPA/(pokemon2.SPD*2)) * random(0.85,1)/2);
+        opponentMove();
+      }
+      else { // If Pikachu is slower - move 1
+        opponentMove();
+        pokemon2.HP -= round(90 * (charizard.SPA/(pokemon2.SPD*2)) * random(0.85,1)/2);
+      }
     }
-    else if(mouseX >= windowWidth*(13/16) && mouseX <= windowWidth && mouseY >= windowHeight*(3/4) && mouseY <= windowHeight*(7/8)) {
-      pokemon2.HP -= round(70 * (charizard.ATK/(pokemon2.DEF*2)) * random(0.85,1)/2);
+    // if move 2 is selected
+    else if(mouseX >= windowWidth*(13/16) && mouseX <= windowWidth && mouseY >= windowHeight*(3/4) && mouseY <= windowHeight*(7/8)) { 
+      if (charizard.SPE > pokemon2.SPE) { // If Pikachu is faster - move 2
+        pokemon2.HP -= round(70 * (charizard.ATK/(pokemon2.DEF*2)) * random(0.85,1)/2);
+        opponentMove();
+      }
+      else { // If Pikachu is slower - move 2
+        opponentMove();
+        pokemon2.HP -= round(70 * (charizard.ATK/(pokemon2.DEF*2)) * random(0.85,1)/2);      
+      }
     }
-    else if(mouseX >= windowWidth*(5/8) && mouseX <= windowWidth*(13/16) && mouseY >= windowHeight*(7/8) && mouseY <= windowHeight) {
-      pokemon2.HP -= round(80 * (charizard.SPA/(pokemon2.SPD*2)) * random(0.85,1)/2);
+    // if move 3 is selected
+    else if(mouseX >= windowWidth*(5/8) && mouseX <= windowWidth*(13/16) && mouseY >= windowHeight*(7/8) && mouseY <= windowHeight) { 
+
+      if (charizard.SPE > pokemon2.SPE) { // If Pikachu is faster - move 3
+        pokemon2.HP -= round(80 * (charizard.SPA/(pokemon2.SPD*2)) * random(0.85,1)/2);
+        opponentMove();
+      }
+      else { // If Pikachu is slower - move 3
+        opponentMove();
+        pokemon2.HP -= round(80 * (charizard.SPA/(pokemon2.SPD*2)) * random(0.85,1)/2);
+      }
+        
     }
+     // if move 4 is selected
     else if(mouseX >= windowWidth*(13/16) && mouseX <= windowWidth && mouseY >= windowHeight*(3/4) && mouseY <= windowHeight) {
-      pokemon2.HP -= round(75 * (charizard.ATK/(pokemon2.DEF*2)) * random(0.85,1)/2);
+
+      if (charizard.SPE > pokemon2.SPE) { // If Pikachu is faster - move 4
+        pokemon2.HP -= round(75 * (charizard.ATK/(pokemon2.DEF*2)) * random(0.85,1)/2);
+        opponentMove();
+      }
+      else { // If Pikachu is slower - move 4
+        opponentMove();
+        pokemon2.HP -= round(75 * (charizard.ATK/(pokemon2.DEF*2)) * random(0.85,1)/2);
+      }    
     }
   }
 }
@@ -307,21 +433,10 @@ function loadPokemon() {
 
 function kill() {
   if (pokemon1.HP <= 0) {
-    pokemon1.HP = 0;
-    fill(220);
-    rect(windowWidth/4, windowHeight/4, windowWidth/2, windowHeight/2);
-    fill(0);
-    textAlign(CENTER, CENTER);
-    text("Computer wins", windowWidth/2, windowHeight/2);
+    state = "end1";
   }
   if (pokemon2.HP <= 0) {
-    pokemon2.HP = 0;
-    fill(220);
-    rect(windowWidth/4, windowHeight/4, windowWidth/2, windowHeight/2);
-    fill(0);
-    textAlign(CENTER, CENTER);
-    text("Player wins", windowWidth/2, windowHeight/2);
-
+    state = "end2";
   }
 }
 
@@ -357,7 +472,7 @@ function kill() {
 //   }
 
 //   if (target === charizard) {
-//     if (moveType === "water" || moveType === "electric") {
+//     if (moveType === "water" || moveType === "electric) {
 //       damage = damage *2;
 //     }
 //     else if (moveType === "rock") {
@@ -372,5 +487,5 @@ function kill() {
 //     else {
 //       damage;
 //     }
-//   }
-// }
+//  }
+//}
