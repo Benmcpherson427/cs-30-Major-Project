@@ -37,14 +37,14 @@ let moveType;
 let state;
 
 function preload() {
-  pikachuFIMG = loadImage("front sprites/pikachufront.png");
-  pikachuBIMG = loadImage("back sprites/pikachuback.png");
-  charizardFIMG = loadImage("front sprites/charizardfront.png");
-  charizardBIMG = loadImage("back sprites/charizardback.png");
-  garchompFIMG = loadImage("front sprites/garchompfront.png");
-  garchompBIMG = loadImage("back sprites/garchompback.png");
-  lucarioFIMG = loadImage("front sprites/lucariofront.png");
-  lucarioBIMG = loadImage("back sprites/lucarioback.png");
+  pikachuFIMG = loadImage("animatedFront/pikachufrontANI.gif");
+  pikachuBIMG = loadImage("animatedBack/pikachubackANI.gif");
+  charizardFIMG = loadImage("animatedFront/charizardfrontANI.gif");
+  charizardBIMG = loadImage("animatedBack/charizardbackANI.gif");
+  garchompFIMG = loadImage("animatedFront/garchompfrontANI.gif");
+  garchompBIMG = loadImage("animatedBack/garchompbackANI.gif");
+  lucarioFIMG = loadImage("animatedFront/lucariofrontANI.gif");
+  lucarioBIMG = loadImage("animatedBack/lucariobackANI.gif");
   bg = loadImage("other displays/pokemonbackground.png");
   startScreen = loadImage("other displays/start screen.png");
   endScreen = loadImage("other displays/end screen.png");
@@ -203,8 +203,7 @@ function mousePressed() {
   if (mouseX >= windowWidth*(5/8) && mouseX <= windowWidth && mouseY >= windowHeight*(3/4) && mouseY <= windowHeight && state === "battle") {
     state = "moves";
   }
-
-  
+ 
   // If the player has lucario and they select a move
   else if (pokemon1 === lucario && state === "moves") {
     // if move 1 is selected
