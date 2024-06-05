@@ -35,6 +35,7 @@ let nVE;
 let damage;
 let moveType;
 let state;
+let counter;
 
 function preload() {
   pikachuFIMG = loadImage("animatedFront/pikachufrontANI.gif");
@@ -107,8 +108,8 @@ function draw() {
     image(bg, windowWidth/2, windowHeight/2, windowWidth, windowHeight);
     loadPokemon();
     healthbox();
-    kill();
     moveset();
+    displayMoves();
   }
   if (state === "victory") {
     battleMusic.stop();
@@ -122,12 +123,14 @@ function draw() {
   if (state === "player loses") {
     image(endScreen, windowWidth/2, windowHeight/2, windowWidth, windowHeight);
     fill(0);
+    textSize(60);
     textAlign(CENTER, CENTER);
     text("Computer wins", windowWidth/2, windowHeight/2);
   }
   if (state === "player wins") {
     image(endScreen, windowWidth/2, windowHeight/2, windowWidth, windowHeight);
     fill(0);
+    textSize(60);
     textAlign(CENTER, CENTER);
     text("Player wins", windowWidth/2, windowHeight/2);
     
@@ -135,16 +138,15 @@ function draw() {
   }
 }
 
-// temporary function for damage
-function keyPressed() {
-
-  if (key === "d") {
-    pokemon1.HP -= round(10 * random(0.85, 1));
-  }
-  if (key === "a") {
-    pokemon2.HP -= round(15 * random(0.85, 1));
+function displayMoves() {
+  if (pokemon1 === lucario) {
+    fill("black");
+    textSize(30);
+    textAlign(CENTER, CENTER);
+    text("Aura Sphere", windowWidth*(11/16), windowHeight*(13/16));
   }
 }
+
 
 function optionsBox() {
   fill("red");
@@ -213,7 +215,6 @@ function mousePressed() {
         pokemon2.HP -= round(80 * (lucario.SPA/(pokemon2.SPD*2)) * random(0.85,1)/2);
         if (pokemon2.HP > 0) {
           opponentMove();
-          state = "battle";
         }
         else {
           state = "victory";
@@ -223,7 +224,6 @@ function mousePressed() {
         opponentMove();
         if (pokemon1.HP > 0) {
           pokemon2.HP -= round(80 * (lucario.SPA/(pokemon2.SPD*2)) * random(0.85,1)/2);
-          state = "battle";
         }
         else {
           state = "loss";
@@ -236,7 +236,6 @@ function mousePressed() {
         pokemon2.HP -= round(80 * (lucario.SPA/(pokemon2.SPD*2)) * random(0.85,1)/2);
         if (pokemon2.HP > 0) {
           opponentMove();
-          state = "battle";
         }
         else {
           state = "victory";
@@ -246,7 +245,6 @@ function mousePressed() {
         opponentMove();
         if (pokemon1.HP > 0) {
           pokemon2.HP -= round(80 * (lucario.SPA/(pokemon2.SPD*2)) * random(0.85,1)/2);
-          state = "battle";
         }
         else {
           state = "loss";
@@ -260,7 +258,6 @@ function mousePressed() {
         pokemon2.HP -= round(80 * (lucario.ATK/(pokemon2.DEF*2)) * random(0.85,1)/2);
         if (pokemon2.HP > 0) {
           opponentMove();
-          state = "battle";
         }
         else {
           state = "victory";
@@ -270,7 +267,6 @@ function mousePressed() {
         opponentMove();
         if (pokemon1.HP > 0) {
           pokemon2.HP -= round(80 * (lucario.ATK/(pokemon2.DEF*2)) * random(0.85,1)/2);
-          state = "battle";
         }
         else {
           state = "loss";
@@ -285,7 +281,6 @@ function mousePressed() {
         pokemon2.HP -= round(80 * (lucario.SPA/(pokemon2.SPD*2)) * random(0.85,1)/2);
         if (pokemon2.HP > 0) {
           opponentMove();
-          state = "battle";
         }
         else {
           state = "victory";
@@ -295,7 +290,6 @@ function mousePressed() {
         opponentMove();
         if (pokemon1.HP > 0) {
           pokemon2.HP -= round(80 * (lucario.SPA/(pokemon2.SPD*2)) * random(0.85,1)/2);
-          state = "battle";
         }
         else {
           state = "loss";
@@ -312,7 +306,6 @@ function mousePressed() {
         pokemon2.HP -= round(80 * (garchomp.ATK/(pokemon2.DEF*2)) * random(0.85,1)/2);
         if (pokemon2.HP > 0) {
           opponentMove();
-          state = "battle";
         }
         else {
           state = "victory";
@@ -322,7 +315,6 @@ function mousePressed() {
         opponentMove();
         if (pokemon1.HP > 0) {
           pokemon2.HP -= round(80 * (garchomp.ATK/(pokemon2.DEF*2)) * random(0.85,1)/2);
-          state = "battle";
         }
         else {
           state = "loss";
@@ -335,7 +327,6 @@ function mousePressed() {
         pokemon2.HP -= round(80 * (garchomp.ATK/(pokemon2.DEF*2)) * random(0.85,1)/2);
         if (pokemon2.HP > 0) {
           opponentMove();
-          state = "battle";
         }
         else {
           state = "victory";
@@ -344,8 +335,7 @@ function mousePressed() {
       else { // If Garchomp is slower - move 2
         opponentMove();
         if (pokemon1.HP > 0) {
-          pokemon2.HP -= round(80 * (garchomp.ATK/(pokemon2.DEF*2)) * random(0.85,1)/2);  
-          state = "battle";    
+          pokemon2.HP -= round(80 * (garchomp.ATK/(pokemon2.DEF*2)) * random(0.85,1)/2);     
         }
         else {
           state = "loss";
@@ -359,7 +349,6 @@ function mousePressed() {
         pokemon2.HP -= round(80 * (garchomp.ATK/(pokemon2.DEF*2)) * random(0.85,1)/2);
         if (pokemon2.HP > 0) {
           opponentMove();
-          state = "battle";
         }
         else {
           state = "victory";
@@ -369,7 +358,6 @@ function mousePressed() {
         opponentMove();
         if (pokemon1.HP > 0) {
           pokemon2.HP -= round(80 * (garchomp.ATK/(pokemon2.DEF*2)) * random(0.85,1)/2);
-          state = "battle";
         }
         else {
           state = "loss";
@@ -384,7 +372,6 @@ function mousePressed() {
         pokemon2.HP -= round(100 * (garchomp.ATK/(pokemon2.DEF*2)) * random(0.85,1)/2);
         if (pokemon2.HP > 0) {
           opponentMove();
-          state = "battle";
         }
         else {
           state = "victory";
@@ -394,7 +381,6 @@ function mousePressed() {
         opponentMove();
         if (pokemon1.HP > 0) {
           pokemon2.HP -= round(100 * (garchomp.ATK/(pokemon2.DEF*2)) * random(0.85,1)/2);
-          state = "battle";
         }
         else {
           state = "loss";
@@ -411,7 +397,6 @@ function mousePressed() {
         pokemon2.HP -= round(80 * (pikachu.SPA/(pokemon2.SPD*2)) * random(0.85,1)/2);
         if (pokemon2.HP > 0) {
           opponentMove();
-          state = "battle";
         }
         else {
           state = "victory";
@@ -421,7 +406,6 @@ function mousePressed() {
         opponentMove();
         if (pokemon1.HP > 0) {
           pokemon2.HP -= round(80 * (pikachu.SPA/(pokemon2.SPD*2)) * random(0.85,1)/2);
-          state = "battle";
         }
         else {
           state = "loss";
@@ -434,7 +418,6 @@ function mousePressed() {
         pokemon2.HP -= round(120 * (pikachu.ATK/(pokemon2.DEF*2)) * random(0.85,1)/2);
         if (pokemon2.HP > 0) {
           opponentMove();
-          state = "battle";
         }
         else {
           state = "victory";
@@ -444,7 +427,6 @@ function mousePressed() {
         opponentMove();
         if (pokemon1.HP > 0) {
           pokemon2.HP -= round(120 * (pikachu.ATK/(pokemon2.DEF*2)) * random(0.85,1)/2);  
-          state = "battle";    
         }
         else {
           state = "loss";
@@ -458,7 +440,6 @@ function mousePressed() {
         pokemon2.HP -= round(90 * (pikachu.ATK/(pokemon2.DEF*2)) * random(0.85,1)/2);
         if (pokemon2.HP > 0) {
           opponentMove();
-          state = "battle";
         }
         else {
           state = "victory";
@@ -468,7 +449,6 @@ function mousePressed() {
         opponentMove();
         if (pokemon1.HP > 0) {
           pokemon2.HP -= round(90 * (pikachu.ATK/(pokemon2.DEF*2)) * random(0.85,1)/2);
-          state = "battle";
         }
         else {
           state = "loss";
@@ -483,7 +463,6 @@ function mousePressed() {
         pokemon2.HP -= round(90 * (pikachu.ATK/(pokemon2.DEF*2)) * random(0.85,1)/2);
         if (pokemon2.HP > 0) {
           opponentMove();
-          state = "battle";
         }
         else {
           state = "victory";
@@ -493,7 +472,6 @@ function mousePressed() {
         opponentMove();
         if (pokemon1.HP > 0) {
           pokemon2.HP -= round(90 * (pikachu.ATK/(pokemon2.DEF*2)) * random(0.85,1)/2);
-          state = "battle";
         }
         else {
           state = "loss";
@@ -510,7 +488,6 @@ function mousePressed() {
         pokemon2.HP -= round(90 * (charizard.SPA/(pokemon2.SPD*2)) * random(0.85,1)/2);
         if (pokemon2.HP > 0) {
           opponentMove();
-          state = "battle";
         }
         else {
           state = "victory";
@@ -520,7 +497,6 @@ function mousePressed() {
         opponentMove();
         if (pokemon1.HP > 0) {
           pokemon2.HP -= round(90 * (charizard.SPA/(pokemon2.SPD*2)) * random(0.85,1)/2);
-          state = "battle";
         }
         else {
           state = "loss";
@@ -533,7 +509,6 @@ function mousePressed() {
         pokemon2.HP -= round(70 * (charizard.ATK/(pokemon2.DEF*2)) * random(0.85,1)/2);
         if (pokemon2.HP > 0) {
           opponentMove();
-          state = "battle";
         }
         else {
           state = "victory";
@@ -543,7 +518,6 @@ function mousePressed() {
         opponentMove();
         if (pokemon1.HP > 0) {
           pokemon2.HP -= round(70 * (charizard.ATK/(pokemon2.DEF*2)) * random(0.85,1)/2);   
-          state = "battle";   
         }
         else {
           state = "loss";
@@ -557,7 +531,6 @@ function mousePressed() {
         pokemon2.HP -= round(80 * (charizard.SPA/(pokemon2.SPD*2)) * random(0.85,1)/2);
         if (pokemon2.HP > 0) {
           opponentMove();
-          state = "battle";
         }
         else {
           state = "victory";
@@ -567,7 +540,6 @@ function mousePressed() {
         opponentMove();
         if (pokemon1.HP > 0) {
           pokemon2.HP -= round(80 * (charizard.SPA/(pokemon2.SPD*2)) * random(0.85,1)/2);
-          state = "battle";
         }
         else {
           state = "loss";
@@ -605,16 +577,16 @@ function mousePressed() {
 function loadPokemon() {
   imageMode(CENTER);
   if (pokemon1 === lucario) {
-    image(lucarioBIMG, windowWidth/4.5, windowHeight - lucarioBIMG.height*2, lucarioBIMG.width *5, lucarioBIMG.height*5);
+    image(lucarioBIMG, windowWidth/4.5, windowHeight - lucarioBIMG.height*2.8, lucarioBIMG.width *5, lucarioBIMG.height*5);
   }
   else if (pokemon1 === pikachu) {
-    image(pikachuBIMG, windowWidth/4.5, windowHeight - pikachuBIMG.height*1.5, pikachuBIMG.width *5, pikachuBIMG.height*5);
+    image(pikachuBIMG, windowWidth/4.5, windowHeight - pikachuBIMG.height*3.5, pikachuBIMG.width *5, pikachuBIMG.height*5);
   }
   else if (pokemon1 === charizard) {
-    image(charizardBIMG, windowWidth/4.5, windowHeight - charizardBIMG.height*2.2, charizardBIMG.width *5, charizardBIMG.height*5);
+    image(charizardBIMG, windowWidth/4.5, windowHeight - charizardBIMG.height*3, charizardBIMG.width *5, charizardBIMG.height*5);
   }
   else if (pokemon1 === garchomp) {
-    image(garchompBIMG, windowWidth/4, windowHeight - garchompBIMG.height*2, garchompBIMG.width*5, garchompBIMG.height*5);
+    image(garchompBIMG, windowWidth/4, windowHeight - garchompBIMG.height*2.5, garchompBIMG.width*5, garchompBIMG.height*5);
   }
 
 
@@ -625,7 +597,7 @@ function loadPokemon() {
     image(pikachuFIMG, windowWidth*(5.3/7), windowHeight/2, pikachuFIMG.width*5, pikachuFIMG.height*5);
   }
   else if (pokemon2 === charizard) {
-    image(charizardFIMG, windowWidth*(5.3/7), windowHeight/2.2, charizardFIMG.width*4, charizardFIMG.height*4);
+    image(charizardFIMG, windowWidth*(5.3/7), windowHeight/2.5, charizardFIMG.width*5, charizardFIMG.height*5);
   }
   else if (pokemon2 === garchomp) {
     image(garchompFIMG, windowWidth*(5.3/7), windowHeight/2.5, garchompFIMG.width*5, garchompFIMG.height*5);
