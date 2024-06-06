@@ -55,7 +55,7 @@ function preload() {
 
 
 class pokemon {
-  constructor(HP, ATK, DEF, SPA, SPD, SPE, type1, type2) {
+  constructor(HP, ATK, DEF, SPA, SPD, SPE, type1, type2, move1, move2, move3, move4) {
     this.HP = HP;
     this.ATK = ATK;
     this.DEF = DEF;
@@ -64,6 +64,10 @@ class pokemon {
     this.SPE = SPE;
     this.type1 = type1;
     this.type2 = type2;
+    this.move1 = move1;
+    this.move2 = move2;
+    this.move3 = move3;
+    this.move4 = move4;
   }
 }
 
@@ -157,7 +161,7 @@ function optionsBox() {
   text("BATTLE", windowWidth*(13/16), windowHeight*(7/8));
 }
 
-function moveset() {
+function moveButtons() {
   rectMode(CORNERS);
   fill("red");
   rect(windowWidth*(5/8), windowHeight*(3/4), windowWidth*(13/16), windowHeight*(7/8));
@@ -180,6 +184,12 @@ function healthbox() {
   textSize(60);
   textAlign(CENTER, CENTER);
   text(pokemon1.HP, windowWidth/8, windowHeight/8);
+}
+
+function moveSets() {
+  if (pokemon1 === lucario) {
+
+  }
 }
 
 function opponentMove() {
@@ -210,6 +220,7 @@ function mousePressed() {
   else if (pokemon1 === lucario && state === "moves") {
     // if move 1 is selected
     if(mouseX >= windowWidth*(5/8) && mouseX <= windowWidth*(13/16) && mouseY >= windowHeight*(3/4) && mouseY <= windowHeight*(7/8)) {
+
 
       if (lucario.SPE > pokemon2.SPE) { // If Lucario is faster - move 1
         pokemon2.HP -= round(80 * (lucario.SPA/(pokemon2.SPD*2)) * random(0.85,1)/2);
