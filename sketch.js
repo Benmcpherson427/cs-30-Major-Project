@@ -27,6 +27,10 @@ let lucario;
 let pokemons = [];
 let pokemon1;
 let pokemon2;
+let lucarioMoves = [];
+let pikachuMoves = [];
+let charizardMoves = [];
+let garchompMoves = [];
 let target;
 let crit;
 let STAB;
@@ -34,6 +38,7 @@ let sE;
 let nVE;
 let damage;
 let moveType;
+let moveUsed;
 let state;
 let counter;
 
@@ -55,7 +60,7 @@ function preload() {
 
 
 class pokemon {
-  constructor(HP, ATK, DEF, SPA, SPD, SPE, type1, type2, move1, move2, move3, move4) {
+  constructor(HP, ATK, DEF, SPA, SPD, SPE, type1, type2) {
     this.HP = HP;
     this.ATK = ATK;
     this.DEF = DEF;
@@ -64,10 +69,6 @@ class pokemon {
     this.SPE = SPE;
     this.type1 = type1;
     this.type2 = type2;
-    this.move1 = move1;
-    this.move2 = move2;
-    this.move3 = move3;
-    this.move4 = move4;
   }
 }
 
@@ -194,21 +195,115 @@ function moveSets() {
 
 function opponentMove() {
   if (pokemon2 === lucario) {
-    pokemon1.HP -= round(random(round(80 * (pokemon2.SPA/(pokemon1.SPD*2)) * random(0.85,1)/2), round(80 * (pokemon2.SPA/(pokemon1.SPD*2)) * random(0.85,1)/2),  
-                          round(80 * (pokemon2.SPA/(pokemon1.SPD*2)) * random(0.85,1)/2), round(80 * (pokemon2.ATK/(pokemon1.DEF*2)) * random(0.85,1)/2)));
+    moveUsed = random(lucarioMoves);
+    if (moveUsed === "Aura Sphere") {
+      target = pokemon1;
+      moveType = "fighting";
+      damage = (80 * (pokemon2.SPA/(pokemon1.SPD*2)) * random(0.85,1)/2);
+    }
+    else if (moveUsed === "Flash Cannon") {
+      target = pokemon1;
+      moveType = "steel";
+      damage = (80 * (pokemon2.SPA/(pokemon1.SPD*2)) * random(0.85,1)/2);
+    }
+    else if (moveUsed === "Crunch") {
+      target = pokemon1;
+      moveType = "dark";
+      damage = (80 * (pokemon2.ATK/(pokemon1.DEF*2)) * random(0.85,1)/2);
+    }
+    else if (moveUsed === "Psychic") {
+      target = pokemon1;
+      moveType = "psychic";
+      damage = (80 * (pokemon2.SPA/(pokemon1.SPD*2)) * random(0.85,1)/2);
+    }
+  }  
+  if (pokemon2 === garchomp) {
+    moveUsed = random(garchompMoves);
+    if (moveUsed === "Crunch") {
+      target = pokemon1;
+      moveType = "dark";
+      damage = (80 * (pokemon2.ATK/(pokemon1.DEF*2)) * random(0.85,1)/2);
+    }
+    else if (moveUsed === "Dragon Claw") {
+      target = pokemon1;
+      moveType = "dragon";
+      damage = (80 * (pokemon2.ATK/(pokemon1.DEF*2)) * random(0.85,1)/2);
+    }
+    else if (moveUsed === "Earthquake") {
+      target = pokemon1;
+      moveType = "ground";
+      damage = (100 * (pokemon2.ATK/(pokemon1.DEF*2)) * random(0.85,1)/2);
+    }
+    else if (moveUsed === "Stone Edge") {
+      target = pokemon1;
+      moveType = "Rock";
+      damage = (100 * (pokemon2.ATK/(pokemon1.DEF*2)) * random(0.85,1)/2);
+    }
   }
-  else if (pokemon2 === charizard) {
-    pokemon1.HP -= round(random(round(75 * (pokemon2.ATK/(pokemon1.DEF*2)) * random(0.85,1)/2), round(70 * (pokemon2.ATK/(pokemon1.DEF*2)) * random(0.85,1)/2),  
-                          round(90 * (pokemon2.SPA/(pokemon1.SPD*2)) * random(0.85,1)/2), round(80 * (pokemon2.SPA/(pokemon1.SPD*2)) * random(0.85,1)/2)));
+  if (pokemon2 === pikachu) {
+    moveUsed = random(pikachuMoves);
+    if (moveUsed === "ThunderBolt") {
+      target = pokemon1;
+      moveType = "electric";
+      damage = (90 * (pokemon2.SPA/(pokemon1.SPD*2)) * random(0.85,1)/2);
+    }
+    else if (moveUsed === "Iron Tail") {
+      target = pokemon1;
+      moveType = "steel";
+      damage = (90 * (pokemon2.ATK/(pokemon1.DEF*2)) * random(0.85,1)/2);
+    }
+    else if (moveUsed === "Play Rough") {
+      target = pokemon1;
+      moveType = "fairy";
+      damage = (90 * (pokemon2.ATK/(pokemon1.DEF*2)) * random(0.85,1)/2);
+    }
+    else if (moveUsed === "Surf") {
+      target = pokemon1;
+      moveType = "water";
+      damage = (90 * (pokemon2.SPA/(pokemon1.SPD*2)) * random(0.85,1)/2);
+    }
   }
-  else if (pokemon2 === garchomp) {
-    pokemon1.HP -= round(random(round(80 * (pokemon2.ATK/(pokemon1.DEF*2)) * random(0.85,1)/2), round(100 * (pokemon2.ATK/(pokemon1.DEF*2)) * random(0.85,1)/2),  
-                          round(80 * (pokemon2.ATK/(pokemon1.DEF*2)) * random(0.85,1)/2), round(100 * (pokemon2.ATK/(pokemon1.DEF*2)) * random(0.85,1)/2)));
+  if (pokemon2 === charizard) {
+    moveUsed = random(charizardMoves);
+    if (moveUsed === "Flamethrower") {
+      target = pokemon1;
+      moveType = "fire";
+      damage = (90 * (pokemon2.SPA/(pokemon1.SPD*2)) * random(0.85,1)/2);
+    }
+    else if (moveUsed === "Dragon Claw") {
+      target = pokemon1;
+      moveType = "dragon";
+      damage = (80 * (pokemon2.SPA/(pokemon1.SPD*2)) * random(0.85,1)/2);
+    }
+    else if (moveUsed === "Air Slash") {
+      target = pokemon1;
+      moveType = "flying";
+      damage = (75 * (pokemon2.ATK/(pokemon1.DEF*2)) * random(0.85,1)/2);
+    }
+    else if (moveUsed === "Fire Punch") {
+      target = pokemon1;
+      moveType = "fire";
+      damage = (75 * (pokemon2.ATK/(pokemon1.DEF*2)) * random(0.85,1)/2);
+    }
   }
-  else if (pokemon2 === pikachu) {
-    pokemon1.HP -= round(random(round(80 * (pokemon2.SPA/(pokemon1.SPD*2)) * random(0.85,1)/2), round(120 * (pokemon2.ATK/(pokemon1.DEF*2)) * random(0.85,1)/2),  
-                          round(90 * (pokemon2.ATK/(pokemon1.DEF*2)) * random(0.85,1)/2), round(90 * (pokemon2.ATK/(pokemon1.DEF*2)) * random(0.85,1)/2)));
-  }
+
+
+  // if (pokemon2 === lucario) {
+  //   pokemon1.HP -= round(random(round(80 * (pokemon2.SPA/(pokemon1.SPD*2)) * random(0.85,1)/2), round(80 * (pokemon2.SPA/(pokemon1.SPD*2)) * random(0.85,1)/2),  
+  //                         round(80 * (pokemon2.SPA/(pokemon1.SPD*2)) * random(0.85,1)/2), round(80 * (pokemon2.ATK/(pokemon1.DEF*2)) * random(0.85,1)/2)));
+  // }
+  // else if (pokemon2 === charizard) {
+  //   pokemon1.HP -= round(random(round(75 * (pokemon2.ATK/(pokemon1.DEF*2)) * random(0.85,1)/2), round(70 * (pokemon2.ATK/(pokemon1.DEF*2)) * random(0.85,1)/2),  
+  //                         round(90 * (pokemon2.SPA/(pokemon1.SPD*2)) * random(0.85,1)/2), round(80 * (pokemon2.SPA/(pokemon1.SPD*2)) * random(0.85,1)/2)));
+  // }
+  // else if (pokemon2 === garchomp) {
+  //   pokemon1.HP -= round(random(round(80 * (pokemon2.ATK/(pokemon1.DEF*2)) * random(0.85,1)/2), round(100 * (pokemon2.ATK/(pokemon1.DEF*2)) * random(0.85,1)/2),  
+  //                         round(80 * (pokemon2.ATK/(pokemon1.DEF*2)) * random(0.85,1)/2), round(100 * (pokemon2.ATK/(pokemon1.DEF*2)) * random(0.85,1)/2)));
+  // }
+  // else if (pokemon2 === pikachu) {
+  //   pokemon1.HP -= round(random(round(80 * (pokemon2.SPA/(pokemon1.SPD*2)) * random(0.85,1)/2), round(120 * (pokemon2.ATK/(pokemon1.DEF*2)) * random(0.85,1)/2),  
+  //                         round(90 * (pokemon2.ATK/(pokemon1.DEF*2)) * random(0.85,1)/2), round(90 * (pokemon2.ATK/(pokemon1.DEF*2)) * random(0.85,1)/2)));
+  // }
 }
 
 function mousePressed() {
@@ -585,7 +680,7 @@ function mousePressed() {
   }
 }
 
-function loadPokemon() {
+function loadPokemon() { //Loads the pokemon sprites into the game, sixing and locating them correctly
   imageMode(CENTER);
   if (pokemon1 === lucario) {
     image(lucarioBIMG, windowWidth/4.5, windowHeight - lucarioBIMG.height*2.8, lucarioBIMG.width *5, lucarioBIMG.height*5);
@@ -616,52 +711,55 @@ function loadPokemon() {
 }
 
 
-// function typeChart() {
-//   if (target === garchomp) {
-//     if (moveType === "fairy" || moveType === "dragon") {
-//       damage = damage *2;
-//     }
-//     else if (moveType === "ice") {
-//       damage = damage *4;
-//     }
-//     else if (moveType === "poison" || moveType === "rock" || moveType === "fire") {
-//       damage = damage *0.5;
-//     }
-//     else if (moveType === "electric") {
-//       damage = 0;
-//     }
-//     else {
-//       damage;
-//     }
-//   }
+function typeChart() {
+  if (target === garchomp) {
+    if (moveType === "fairy" || moveType === "dragon") {
+      damage = damage *2;
+    }
+    else if (moveType === "ice") {
+      damage = damage *4;
+    }
+    else if (moveType === "poison" || moveType === "rock" || moveType === "fire") {
+      damage = damage *0.5;
+    }
+    else if (moveType === "electric") {
+      damage = 0;
+    }
+    else {
+      damage;
+    }
+  }
 
-//   if (target === pikachu) {
-//     if (moveType === "ground") {
-//       damage = damage *2;
-//     }
-//     else if (moveType === "electric" || moveType === "steel" || moveType === "flying") {
-//       damage = damage *0.5;
-//     }
-//     else {
-//       damage;
-//     }
-//   }
+  if (target === pikachu) {
+    if (moveType === "ground") {
+      damage = damage *2;
+    }
+    else if (moveType === "electric" || moveType === "steel" || moveType === "flying") {
+      damage = damage *0.5;
+    }
+    else {
+      damage;
+    }
+  }
 
-//   if (target === charizard) {
-//     if (moveType === "water" || moveType === "electric) {
-//       damage = damage *2;
-//     }
-//     else if (moveType === "rock") {
-//       damage = damage *4;
-//     }
-//     else if (moveType === "poison" || moveType === "rock" || moveType === "fire") {
-//       damage = damage *0.5;
-//     }
-//     else if (moveType === "ground") {
-//       damage = 0;
-//     }
-//     else {
-//       damage;
-//     }
-//  }
-//}
+  if (target === charizard) {
+    if (moveType === "water" || moveType === "electric") {
+      damage = damage *2;
+    }
+    else if (moveType === "rock") {
+      damage = damage *4;
+    }
+    else if (moveType === "poison" || moveType === "fairy" || moveType === "fire") {
+      damage = damage *0.5;
+    }
+    else if (moveType === "grass") {
+      damage = damage *0.25;
+    }
+    else if (moveType === "ground") {
+      damage = 0;
+    }
+    else {
+      damage;
+    }
+  }
+}
