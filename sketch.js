@@ -92,6 +92,7 @@ function setup() {
     }
   }
   pokemon2 = random(pokemons);
+  counter = 3000
   state = "opening";
 }
 
@@ -147,10 +148,30 @@ function displayMoves() {
   fill("black");
   textSize(20);
   textAlign(CENTER, CENTER);
-  text("Move One", windowWidth*(11.5/16), windowHeight*(13/16));
-  text("Move Two", windowWidth*(14.5/16), windowHeight*(13/16));
-  text("Move Three", windowWidth*(11.5/16), windowHeight*(15/16));
-  text("Move Four", windowWidth*(14.5/16), windowHeight*(15/16));
+  if (pokemon1 === lucario) {
+    text("Aura Sphere", windowWidth*(11.5/16), windowHeight*(13/16));
+    text("Flash Cannon", windowWidth*(14.5/16), windowHeight*(13/16));
+    text("Crunch", windowWidth*(11.5/16), windowHeight*(15/16));
+    text("Psychic", windowWidth*(14.5/16), windowHeight*(15/16));
+  }
+  if (pokemon1 === garchomp) {
+    text("Dragon Claw", windowWidth*(11.5/16), windowHeight*(13/16));
+    text("Earth Quake", windowWidth*(14.5/16), windowHeight*(13/16));
+    text("Crunch", windowWidth*(11.5/16), windowHeight*(15/16));
+    text("Rock Slide", windowWidth*(14.5/16), windowHeight*(15/16));
+  }
+  if (pokemon1 === pikachu) {
+    text("Thunderbolt", windowWidth*(11.5/16), windowHeight*(13/16));
+    text("Iron Tail", windowWidth*(14.5/16), windowHeight*(13/16));
+    text("Wild Charge", windowWidth*(11.5/16), windowHeight*(15/16));
+    text("Play Rough", windowWidth*(14.5/16), windowHeight*(15/16));
+  }
+  if (pokemon1 === charizard) {
+    text("Air Slash", windowWidth*(11.5/16), windowHeight*(13/16));
+    text("Flamethrower", windowWidth*(14.5/16), windowHeight*(13/16));
+    text("Dragon Pulse", windowWidth*(11.5/16), windowHeight*(15/16));
+    text("Fire Punch", windowWidth*(14.5/16), windowHeight*(15/16));
+  }
 }
 
 
@@ -219,12 +240,15 @@ function mousePressed() {
   else if (pokemon1 === lucario && state === "moves") {
     // if move 1 is selected
     if(mouseX >= windowWidth*(5/8) && mouseX <= windowWidth*(13/16) && mouseY >= windowHeight*(3/4) && mouseY <= windowHeight*(7/8)) {
-
+      counter = millis() + 3000;
 
       if (lucario.SPE > pokemon2.SPE) { // If Lucario is faster - move 1
         pokemon2.HP -= round(80 * (lucario.SPA/(pokemon2.SPD*2)) * random(0.85,1)/2);
         if (pokemon2.HP > 0) {
-          opponentMove();
+          if (millis() > counter) {
+            opponentMove();
+            counter + 3000
+          }
         }
         else {
           state = "victory";
