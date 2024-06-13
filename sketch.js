@@ -139,7 +139,16 @@ function draw() {
     textSize(60);
     textAlign(CENTER, CENTER);
     text("Player wins", windowWidth/2, windowHeight/2);
-    
+  }
+  if (state === "moveTextBox") {
+    fill("220");
+    rect(windowWidth*5/8, windowHeight*(3/4), windowWidth, windowHeight);
+    fill("black");
+    textSize(60);
+    textAlign(CENTER, CENTER);
+    text(pokemon1 + "used tackle", windowWidth*(13/16), windowHeight*(7/8));
+    counter = counter + millis();
+    if (millis() > counter + 2000);
 
   }
 }
@@ -243,6 +252,8 @@ function mousePressed() {
       counter = millis() + 3000;
 
       if (lucario.SPE > pokemon2.SPE) { // If Lucario is faster - move 1
+        state = "moveTextBox";
+        if (state === "attack")
         pokemon2.HP -= round(80 * (lucario.SPA/(pokemon2.SPD*2)) * random(0.85,1)/2);
         if (pokemon2.HP > 0) {
           if (millis() > counter) {

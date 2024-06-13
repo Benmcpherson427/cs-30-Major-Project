@@ -139,17 +139,58 @@ function draw() {
     textSize(60);
     textAlign(CENTER, CENTER);
     text("Player wins", windowWidth/2, windowHeight/2);
-    
-
+  }
+  if (state === "prepAttack") {
+    playerMove();
+    if (pokemon1.SPE > pokemon2.SPE) {
+      state = "playerText";
+    }
+  }
+  if (state === "playerText") {
+    fill("220");
+    rect(windowWidth*5/8, windowHeight*(3/4), windowWidth, windowHeight);
+    fill("black");
+    textSize(60);
+    textAlign(CENTER, CENTER);
+    text(pokemon1 + "used" + playerMove, windowWidth*(13/16), windowHeight*(7/8));
+    counter = counter + millis();
+    if (millis() > counter + 3000) {
+      state = "attack";
+    }
   }
 }
 
+function moveText() {
+
+}
+
 function displayMoves() {
+  fill("black");
+  textSize(20);
+  textAlign(CENTER, CENTER);
   if (pokemon1 === lucario) {
-    fill("black");
-    textSize(30);
-    textAlign(CENTER, CENTER);
-    text("Aura Sphere", windowWidth*(11/16), windowHeight*(13/16));
+    text("Aura Sphere", windowWidth*(11.5/16), windowHeight*(13/16));
+    text("Flash Cannon", windowWidth*(14.5/16), windowHeight*(13/16));
+    text("Crunch", windowWidth*(11.5/16), windowHeight*(15/16));
+    text("Psychic", windowWidth*(14.5/16), windowHeight*(15/16));
+  }
+  if (pokemon1 === garchomp) {
+    text("Dragon Claw", windowWidth*(11.5/16), windowHeight*(13/16));
+    text("Earth Quake", windowWidth*(14.5/16), windowHeight*(13/16));
+    text("Crunch", windowWidth*(11.5/16), windowHeight*(15/16));
+    text("Rock Slide", windowWidth*(14.5/16), windowHeight*(15/16));
+  }
+  if (pokemon1 === pikachu) {
+    text("Thunderbolt", windowWidth*(11.5/16), windowHeight*(13/16));
+    text("Iron Tail", windowWidth*(14.5/16), windowHeight*(13/16));
+    text("Wild Charge", windowWidth*(11.5/16), windowHeight*(15/16));
+    text("Play Rough", windowWidth*(14.5/16), windowHeight*(15/16));
+  }
+  if (pokemon1 === charizard) {
+    text("Air Slash", windowWidth*(11.5/16), windowHeight*(13/16));
+    text("Flamethrower", windowWidth*(14.5/16), windowHeight*(13/16));
+    text("Dragon Pulse", windowWidth*(11.5/16), windowHeight*(15/16));
+    text("Fire Punch", windowWidth*(14.5/16), windowHeight*(15/16));
   }
 }
 
@@ -188,14 +229,9 @@ function healthbox() {
   text(pokemon1.HP, windowWidth/8, windowHeight/8);
 }
 
-function moveSets() {
-  if (pokemon1 === lucario) {
-
-  }
-}
 
 
-function playerMove() {
+function playerMoves() {
   if (pokemon1 === lucario) {
     if (playerMove === "Aura Sphere") {
       target = pokemon2;
@@ -268,7 +304,7 @@ function playerMove() {
       moveType = "fire";
       damage = (90 * (pokemon1.SPA/(pokemon2.SPD*2)) * random(0.85,1)/2);
     }
-    else if (playerMove === "Dragon Claw") {
+    else if (playerMove === "Dragon Pulse") {
       target = pokemon2;
       moveType = "dragon";
       damage = (80 * (pokemon1.SPA/(pokemon2.SPD*2)) * random(0.85,1)/2);
@@ -284,24 +320,6 @@ function playerMove() {
       damage = (75 * (pokemon1.ATK/(pokemon2.DEF*2)) * random(0.85,1)/2);
     }
   }
-
-
-  // if (pokemon2 === lucario) {
-  //   pokemon1.HP -= round(random(round(80 * (pokemon2.SPA/(pokemon1.SPD*2)) * random(0.85,1)/2), round(80 * (pokemon2.SPA/(pokemon1.SPD*2)) * random(0.85,1)/2),  
-  //                         round(80 * (pokemon2.SPA/(pokemon1.SPD*2)) * random(0.85,1)/2), round(80 * (pokemon2.ATK/(pokemon1.DEF*2)) * random(0.85,1)/2)));
-  // }
-  // else if (pokemon2 === charizard) {
-  //   pokemon1.HP -= round(random(round(75 * (pokemon2.ATK/(pokemon1.DEF*2)) * random(0.85,1)/2), round(70 * (pokemon2.ATK/(pokemon1.DEF*2)) * random(0.85,1)/2),  
-  //                         round(90 * (pokemon2.SPA/(pokemon1.SPD*2)) * random(0.85,1)/2), round(80 * (pokemon2.SPA/(pokemon1.SPD*2)) * random(0.85,1)/2)));
-  // }
-  // else if (pokemon2 === garchomp) {
-  //   pokemon1.HP -= round(random(round(80 * (pokemon2.ATK/(pokemon1.DEF*2)) * random(0.85,1)/2), round(100 * (pokemon2.ATK/(pokemon1.DEF*2)) * random(0.85,1)/2),  
-  //                         round(80 * (pokemon2.ATK/(pokemon1.DEF*2)) * random(0.85,1)/2), round(100 * (pokemon2.ATK/(pokemon1.DEF*2)) * random(0.85,1)/2)));
-  // }
-  // else if (pokemon2 === pikachu) {
-  //   pokemon1.HP -= round(random(round(80 * (pokemon2.SPA/(pokemon1.SPD*2)) * random(0.85,1)/2), round(120 * (pokemon2.ATK/(pokemon1.DEF*2)) * random(0.85,1)/2),  
-  //                         round(90 * (pokemon2.ATK/(pokemon1.DEF*2)) * random(0.85,1)/2), round(90 * (pokemon2.ATK/(pokemon1.DEF*2)) * random(0.85,1)/2)));
-  // }
 }
 
 function mousePressed() {
@@ -309,11 +327,68 @@ function mousePressed() {
     state = "moves";
   }
   if(state === "moves" && mouseX >= windowWidth*(5/8) && mouseX <= windowWidth*(13/16) && mouseY >= windowHeight*(3/4) && mouseY <= windowHeight*(7/8)) {
-    
+    if (pokemon1 === lucario) {
+      playerMove = "Aura Sphere";
+    }
+    else if (pokemon1 === garchomp) {
+      playerMove = "Crunch";
+    }
+    else if (pokemon1 === pikachu) {
+      playerMove = "Thunderbolt";
+    }
+    else if (pokemon1 === charizard) {
+      playerMove = "Flamethrower";
+    }
+    state = "prepAttack";
   }
+  else if(state === "moves" && mouseX >= windowWidth*(13/16) && mouseX <= windowWidth && mouseY >= windowHeight*(3/4) && mouseY <= windowHeight*(7/8)) {
+    if (pokemon1 === lucario) {
+      playerMove = "Flash Cannon";
+    }
+    else if (pokemon1 === garchomp) {
+      playerMove = "Dragon Claw";
+    }
+    else if (pokemon1 === pikachu) {
+      playerMove = "Iron Tail";
+    }
+    else if (pokemon1 === charizard) {
+      playerMove = "Dragon Pulse";
+    }
+    state = "prepAttack";
+  }
+  else if(state === "moves" && mouseX >= windowWidth*(5/8) && mouseX <= windowWidth*(13/16) && mouseY >= windowHeight*(7/8) && mouseY <= windowHeight) {
+    if (pokemon1 === lucario) {
+      playerMove = "Crunch";
+    }
+    else if (pokemon1 === garchomp) {
+      playerMove = "Eathquake";
+    }
+    else if (pokemon1 === pikachu) {
+      playerMove = "Play Rough";
+    }
+    else if (pokemon1 === charizard) {
+      playerMove = "Air Slash";
+    }
+    state = "prepAttack";
+  }
+  else if(state === "moves" && mouseX >= windowWidth*(13/16) && mouseX <= windowWidth && mouseY >= windowHeight*(3/4) && mouseY <= windowHeight) {
+    if (pokemon1 === lucario) {
+      playerMove = "Psychic";
+    }
+    else if (pokemon1 === garchomp) {
+      playerMove = "Rock Slide";
+    }
+    else if (pokemon1 === pikachu) {
+      playerMove = "Surf";
+    }
+    else if (pokemon1 === charizard) {
+      playerMove = "Fire Punch";
+    }
+    state = "prepAttack";
+  }
+ }
 
 
-}
 
 function loadPokemon() { //Loads the pokemon sprites into the game, sixing and locating them correctly
   imageMode(CENTER);
