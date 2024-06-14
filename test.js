@@ -160,8 +160,15 @@ function draw() {
   }
 }
 
-function moveText() {
-
+function pokeAttacks() {
+  if (pokemon1.SPE > pokemon2.SPE) {
+    playerAttacks();
+    setTimeout(compAttacks, 4000);
+  }
+  else if (pokemon1.SPE < pokemon2.SPE) {
+    compAttacks();
+    setTimeout(playerAttacks, 4000);
+  }
 }
 
 function displayMoves() {
@@ -217,6 +224,8 @@ function moveButtons() {
 
 }
 
+
+
 function healthbox() {
   fill("black");
   textSize(60);
@@ -227,6 +236,16 @@ function healthbox() {
   textSize(60);
   textAlign(CENTER, CENTER);
   text(pokemon1.HP, windowWidth/8, windowHeight/8);
+}
+
+function playerAttacks() {
+  typeChart();
+  pokemon2 -= round(damage);
+}
+
+function compAttacks() {
+  typeChart();
+  pokemon1 -= round(damage);
 }
 
 

@@ -325,7 +325,7 @@ function mousePressed() {
       if (lucario.SPE > pokemon2.SPE) { // If Lucario is faster - move 4
         pokemon2.HP -= round(80 * (lucario.SPA/(pokemon2.SPD*2)) * random(0.85,1)/2);
         if (pokemon2.HP > 0) {
-          opponentMove();
+          setTimeout(opponentMove, 5000);
         }
         else {
           state = "victory";
@@ -334,7 +334,7 @@ function mousePressed() {
       else { // If Lucario is slower - move 4
         opponentMove();
         if (pokemon1.HP > 0) {
-          pokemon2.HP -= round(80 * (lucario.SPA/(pokemon2.SPD*2)) * random(0.85,1)/2);
+          setTimeout(pokemon2.HP -= round(80 * (lucario.SPA/(pokemon2.SPD*2)) * random(0.85,1)/2));
         }
         else {
           state = "loss";
