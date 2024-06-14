@@ -81,7 +81,7 @@ function setup() {
   createCanvas(windowWidth, windowHeight);
   charizard = new pokemon(78, 84, 78, 109, 85, 100, "fire", "flying", "Charizard");
   pikachu = new pokemon(75, 80, 70, 95, 60, 120, "electric", "none", "Pikachu");
-  garchomp = new pokemon(108, 130, 95, 80, 85, 102, "dragon", "ground", "Garchomp");
+  garchomp = new pokemon(108, 100, 95, 80, 85, 102, "dragon", "ground", "Garchomp");
   lucario = new pokemon(70, 110, 70, 115, 70, 90, "fighting", "steel", "Lucario");
   pokemons.push(lucario);
   pokemons.push(pikachu);
@@ -274,14 +274,9 @@ function mousePressed() {
     if(mouseX >= windowWidth*(5/8) && mouseX <= windowWidth*(13/16) && mouseY >= windowHeight*(3/4) && mouseY <= windowHeight*(7/8)) {
       moveWasUsed = true;
       if (lucario.SPE > pokemon2.SPE) { // If Lucario is faster - move 1
-        state = "moveTextBox";
-        if (state === "attack")
         pokemon2.HP -= round(80 * (lucario.SPA/(pokemon2.SPD*2)) * random(0.85,1)/2);
         if (pokemon2.HP > 0) {
-          if (millis() > counter) {
             opponentMove();
-            counter + 3000
-          }
         }
         else {
           state = "victory";
