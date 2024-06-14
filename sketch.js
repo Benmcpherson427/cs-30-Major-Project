@@ -27,21 +27,15 @@ let lucario;
 let pokemons = [];
 let pokemon1;
 let pokemon2;
-let lucarioMoves = [];
-let pikachuMoves = [];
-let charizardMoves = [];
-let garchompMoves = [];
 let target;
-let crit;
-let STAB;
-let sE;
-let nVE;
 let damage;
 let moveType;
 let moveUsed;
 let playerMove;
 let state;
 let counter;
+let name1;
+let name2;
 
 function preload() {
   pikachuFIMG = loadImage("animatedFront/pikachufrontANI.gif");
@@ -93,6 +87,8 @@ function setup() {
     }
   }
   pokemon2 = random(pokemons);
+  pokeName1();
+  pokeName2();
   state = "opening";
 }
 
@@ -153,18 +149,18 @@ function draw() {
     fill("220");
     rect(windowWidth*5/8, windowHeight*(3/4), windowWidth, windowHeight);
     fill("black");
-    textSize(60);
+    textSize(20);
     textAlign(CENTER, CENTER);
-    text(pokemon2 + "used" + compMove, windowWidth*(13/16), windowHeight*(7/8));
+    text(name2 + " used " + compMove, windowWidth*(13/16), windowHeight*(7/8));
     setTimeout(state = "attack", 4000);
   }
   if (state === "playerText") {
     fill("220");
     rect(windowWidth*5/8, windowHeight*(3/4), windowWidth, windowHeight);
     fill("black");
-    textSize(60);
+    textSize(20);
     textAlign(CENTER, CENTER);
-    text(pokemon1 + "used" + playerMove, windowWidth*(13/16), windowHeight*(7/8));
+    text(name1 + " used " + playerMove, windowWidth*(13/16), windowHeight*(7/8));
     setTimeout(state = "attack", 4000);
   }
 }
@@ -174,6 +170,7 @@ function pokeAttacks() {
     playerAttacks();
     if (pokemon2.HP > 0) {
       setTimeout(compAttacks, 4000);
+      setTimeout(state = "moves", 4000);
     }
     else {
       state = "victory";
@@ -183,6 +180,7 @@ function pokeAttacks() {
     compAttacks();
     if (pokemon1.HP > 0) {
       setTimeout(playerAttacks, 4000);
+      setTimeout(state = "moves", 4000);
     }
     else {
       state = "loss";
@@ -244,6 +242,35 @@ function moveButtons() {
 
 }
 
+function pokeName1() {
+  if (pokemon1 === lucario) {
+    name1 = "Lucario";
+  }
+  else if (pokemon1 === garchomp) {
+    name1 = "Garchomp";
+  }
+  else if (pokemon1 === charizard) {
+    name1 = "Charizard";
+  }
+  else if (pokemon1 === pikachu) {
+    name1 = "Pikachu";
+  }
+}
+
+function pokeName2 () {
+  if (pokemon2 === lucario) {
+    name2 = "Lucario";
+  }
+  else if (pokemon2 === garchomp) {
+    name2 = "Garchomp";
+  }
+  else if (pokemon2 === charizard) {
+    name2 = "Charizard";
+  }
+  else if (pokemon2 === pikachu) {
+    name2 = "Pikachu";
+  }
+}
 
 
 function healthbox() {
@@ -432,7 +459,7 @@ function compMoves() {
     }
   }
   if (pokemon2 === charizard) {
-    compMove = random(["Flamethrowe", "Dragon Pulse", "Air Slash", "Fire Punch"]);
+    compMove = random(["Flamethrower", "Dragon Pulse", "Air Slash", "Fire Punch"]);
     if (compMove === "Flamethrower") {
       target = pokemon1;
       moveType = "fire";
