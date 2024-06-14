@@ -51,10 +51,6 @@ function preload() {
   endScreen = loadImage("other displays/end screen.png");
   battleMusic = loadSound("other displays/sounds/CynthiaBattleMusic.mp3");
   victoryMusic = loadSound("other displays/sounds/Victory.mp3");
-  charizard = new pokemon(78, 84, 78, 109, 85, 100, "fire", "flying");
-  pikachu = new pokemon(75, 80, 70, 95, 60, 120, "electric", "none");
-  garchomp = new pokemon(108, 130, 95, 80, 85, 102, "dragon", "ground");
-  lucario = new pokemon(70, 110, 70, 115, 70, 90, "fighting", "steel");
 }
 
 
@@ -75,6 +71,10 @@ class pokemon {
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
+  charizard = new pokemon(78, 84, 78, 109, 85, 100, "fire", "flying");
+  pikachu = new pokemon(75, 80, 70, 95, 60, 120, "electric", "none");
+  garchomp = new pokemon(108, 130, 95, 80, 85, 102, "dragon", "ground");
+  lucario = new pokemon(70, 110, 70, 115, 70, 90, "fighting", "steel");
   pokemons.push(lucario);
   pokemons.push(pikachu);
   pokemons.push(garchomp);
