@@ -2,8 +2,12 @@
 // Ben McPherson
 // May 1st - June 14th
 //
-// Extra for Experts:
-// - describe what you did to take this project "above and beyond"
+// This code is a barebones, barely pokemon, battle simulator. It has the damage and a winner. Each pokemon does move depending on their speed stat
+// but that is not notiable when playing the game (Just know it exists). It is missing the main components such as visual turns and type interaction (a BIG one), 
+// which upsets me a bunch, but I couldn't get it working. I think it has to do with my massive mousePressed function, which is horribly coded and could 
+// be simplified so much (I just ran out of time and I had done too much go to back at that point).
+// There is a visual issue where the white side, which was going to hold the move history, eats up part of the left side of the screen, but code 1.md
+// contains the older code which doesn't have that issue. 
 
 
 
@@ -44,7 +48,7 @@ let counter;
 let y;
 let moveWasUsed = false;
 
-
+// Loads all my images, sounds and gifs
 function preload() {
   pikachuFIMG = loadImage("animatedFront/pikachufrontANI.gif");
   pikachuBIMG = loadImage("animatedBack/pikachubackANI.gif");
@@ -61,7 +65,7 @@ function preload() {
   victoryMusic = loadSound("other displays/sounds/Victory.mp3");
 }
 
-
+// Makes the pokemon with the correct stats
 class pokemon {
   constructor(HP, ATK, DEF, SPA, SPD, SPE, type1, type2, name) {
     this.HP = HP;
@@ -76,7 +80,7 @@ class pokemon {
   }
 }
 
-
+// Makes the pokemon, and assigns them to the user and computer
 function setup() {
   createCanvas(windowWidth, windowHeight);
   charizard = new pokemon(78, 84, 78, 109, 85, 100, "fire", "flying", "Charizard");
@@ -99,7 +103,7 @@ function setup() {
   state = "opening";
 }
 
-
+// My long draw loop with many states
 function draw() {
   if (state === "opening") {
     image(startScreen, 0, 0, windowWidth, windowHeight);
@@ -164,7 +168,7 @@ function draw() {
   }
 }
 
-
+// Kills the pokemon and assigns a winner if someone falls below 0 HP. Occasionally bugs out and give Pikachu negative health, making him invincible
 function kill() {
   if (pokemon1.HP <= 0) {
     state = "loss";
@@ -174,7 +178,7 @@ function kill() {
   }
 }
 
-
+// Displays the move names
 function displayMoves() {
   fill("black");
   textSize(20);
@@ -205,7 +209,7 @@ function displayMoves() {
   }
 }
 
-
+// Displays the battle button
 function optionsBox() {
   fill("red");
   rect(windowWidth*5/8, windowHeight*(3/4), windowWidth, windowHeight);
@@ -215,7 +219,7 @@ function optionsBox() {
   text("BATTLE", windowWidth*(13/16), windowHeight*(7/8));
 }
 
-
+// Displays the move buttons
 function moveButtons() {
   rectMode(CORNERS);
   fill("red");
@@ -228,7 +232,7 @@ function moveButtons() {
   rect(windowWidth*(13/16), windowHeight*(7/8), windowWidth, windowHeight);
 }
 
-
+// Displays the pokemons current health as a simple number
 function healthbox() {
   fill("black");
   textSize(60);
@@ -241,6 +245,7 @@ function healthbox() {
   text(pokemon1.HP, windowWidth/3, windowHeight/8);
 }
 
+// Was supposed to print "Pokemon X used move Y", but never worked
 function moveHistory() {
   if (moveWasUsed === true) {
     fill("black");
@@ -254,7 +259,7 @@ function moveHistory() {
 
 
 function opponentMove() {
-
+// Randomly picks a move for the cpu
   if (pokemon2 === lucario) {
     pokemon1.HP -= round(random(round(80 * (pokemon2.SPA/(pokemon1.SPD*2)) * random(0.85,1)/2), round(80 * (pokemon2.SPA/(pokemon1.SPD*2)) * random(0.85,1)/2),  
                           round(80 * (pokemon2.SPA/(pokemon1.SPD*2)) * random(0.85,1)/2), round(80 * (pokemon2.ATK/(pokemon1.DEF*2)) * random(0.85,1)/2)));
@@ -273,7 +278,7 @@ function opponentMove() {
   }
 }
 
-
+// Checks if the player picked a move
 function mousePressed() {
   if (mouseX >= windowWidth*(5/8) && mouseX <= windowWidth && mouseY >= windowHeight*(3/4) && mouseY <= windowHeight && state === "battle") {
     state = "moves";
@@ -647,7 +652,7 @@ function mousePressed() {
   }
 }
 
-function loadPokemon() { //Loads the pokemon sprites into the game, sixing and locating them correctly
+function loadPokemon() { //Loads the pokemon sprites into the game, sizing and locating them correctly (mostly. Did kind of break last second when I was trying to get the move history working)
   imageMode(CENTER);
   if (pokemon1 === lucario) {
     image(lucarioBIMG, windowWidth/2.5, windowHeight - lucarioBIMG.height*2.8, lucarioBIMG.width *5, lucarioBIMG.height*5);

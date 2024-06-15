@@ -2,8 +2,7 @@
 // Ben McPherson
 // May 1st - June 14th
 //
-// Extra for Experts:
-// - describe what you did to take this project "above and beyond"
+// Unfortunately this code never worked, which is sad because this was my code that had the type interactions and proper timing built in, although Ii don't knwo if they actually worked, as the coed never got to the point where it would run those parts when I played the game.
 
 
 
@@ -37,6 +36,8 @@ let counter;
 let name1;
 let name2;
 
+
+this loads my pokemon, images, sounds and gifs
 function preload() {
   pikachuFIMG = loadImage("animatedFront/pikachufrontANI.gif");
   pikachuBIMG = loadImage("animatedBack/pikachubackANI.gif");
@@ -57,7 +58,7 @@ function preload() {
   lucario = new pokemon(70, 110, 70, 115, 70, 90, "fighting", "steel");
 }
 
-
+this is the class which makes the pokemon
 class pokemon {
   constructor(HP, ATK, DEF, SPA, SPD, SPE, type1, type2) {
     this.HP = HP;
@@ -72,7 +73,7 @@ class pokemon {
 }
 
 
-
+pushing the 4 pokemon into an array, then assigning one to each side, making sure they arent the same
 function setup() {
   createCanvas(windowWidth, windowHeight);
   pokemons.push(lucario);
@@ -92,6 +93,7 @@ function setup() {
   state = "opening";
 }
 
+// this is the overly long draw loop with an absurd amount of states
 function draw() {
   if (state === "opening") {
     image(startScreen, 0, 0, windowWidth, windowHeight);
@@ -168,6 +170,8 @@ function draw() {
   }
 }
 
+
+// this is supposed to be the code which the pokemon attack with
 function pokeAttacks() {
   if (pokemon1.SPE > pokemon2.SPE) {
     playerAttacks();
@@ -191,7 +195,7 @@ function pokeAttacks() {
   }
 }
 
-
+this displays the test for each move
 function displayMoves() {
   fill("black");
   textSize(20);
@@ -222,7 +226,7 @@ function displayMoves() {
   }
 }
 
-
+// this displays the red BATTLE box
 function optionsBox() {
   fill("red");
   rect(windowWidth*5/8, windowHeight*(3/4), windowWidth, windowHeight);
@@ -232,6 +236,8 @@ function optionsBox() {
   text("BATTLE", windowWidth*(13/16), windowHeight*(7/8));
 }
 
+
+// This function displays the boxes for the moves
 function moveButtons() {
   rectMode(CORNERS);
   fill("red");
@@ -245,6 +251,7 @@ function moveButtons() {
 
 }
 
+// the following functions set the names of the pokemons to strings
 function pokeName1() {
   if (pokemon1 === lucario) {
     name1 = "Lucario";
@@ -275,7 +282,7 @@ function pokeName2 () {
   }
 }
 
-
+// displays the pokemons health as a simple number
 function healthbox() {
   fill("black");
   textSize(60);
@@ -288,6 +295,8 @@ function healthbox() {
   text(pokemon1.HP, windowWidth/8, windowHeight/8);
 }
 
+
+// theses were small codes which took the type and then dealt damage
 function playerAttacks() {
   typeChart();
   pokemon2 -= round(damage);
@@ -299,7 +308,7 @@ function compAttacks() {
 }
 
 
-
+// this is what assigned the players move it's target, type and damage
 function playerMoves() {
   if (pokemon1 === lucario) {
     if (playerMove === "Aura Sphere") {
@@ -391,6 +400,7 @@ function playerMoves() {
   }
 }
 
+// this is the same as above, but for the computer and choses a move at random
 function compMoves() {
   if (pokemon2 === lucario) {
     compMove = random(["Aura Sphere", "Flash Cannon", "Crunch,", "Psychic"]);
@@ -486,6 +496,7 @@ function compMoves() {
   }
 }
 
+// checked if you clicked a move, and them returned the results to the function above
 function mousePressed() {
   if (mouseX >= windowWidth*(5/8) && mouseX <= windowWidth && mouseY >= windowHeight*(3/4) && mouseY <= windowHeight && state === "battle") {
     state = "moves";
@@ -553,7 +564,7 @@ function mousePressed() {
  }
 
 
-
+// loads the pokemon sprites
 function loadPokemon() { //Loads the pokemon sprites into the game, sixing and locating them correctly
   imageMode(CENTER);
   if (pokemon1 === lucario) {
@@ -584,7 +595,7 @@ function loadPokemon() { //Loads the pokemon sprites into the game, sixing and l
   }
 }
 
-
+// took the pokemons type, and checked for the move type to see if the damage is multiplied
 function typeChart() {
   if (target === garchomp) {
     if (moveType === "fairy" || moveType === "dragon") {
@@ -634,6 +645,21 @@ function typeChart() {
     }
     else {
       damage;
+    }
+  }
+
+  if (target === lucario) {
+    if (moveType === "Fighting" || moveType === "Ground" || moveType === "Fire") {
+      damage = damage *2;
+    }
+    else if (moveType === "Normal" || moveType === "Steel" || moveType === "Grass" || moveType === "Ice" || moveType === "Dragon" || moveType === "Dark") {
+      damage = damage * 0.5;
+    }
+    else if (moveType === "Rock" || moveType === "Bug") {
+      damage = damage *0.25;
+    }
+    else if (moveType === 'Poison") {
+      damage = 0;
     }
   }
 }
