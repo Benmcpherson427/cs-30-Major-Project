@@ -81,7 +81,7 @@ function setup() {
   createCanvas(windowWidth, windowHeight);
   charizard = new pokemon(78, 84, 78, 109, 85, 100, "fire", "flying", "Charizard");
   pikachu = new pokemon(75, 80, 70, 95, 60, 120, "electric", "none", "Pikachu");
-  garchomp = new pokemon(108, 100, 95, 80, 85, 102, "dragon", "ground", "Garchomp");
+  garchomp = new pokemon(80, 100, 95, 80, 85, 102, "dragon", "ground", "Garchomp");
   lucario = new pokemon(70, 110, 70, 115, 70, 90, "fighting", "steel", "Lucario");
   pokemons.push(lucario);
   pokemons.push(pikachu);
@@ -126,6 +126,7 @@ function draw() {
     healthbox();
     moveButtons();
     displayMoves();
+    kill();
   }
   if (state === "victory") {
     battleMusic.stop();
@@ -160,6 +161,16 @@ function draw() {
     counter = counter + millis();
     if (millis() > counter + 2000);
 
+  }
+}
+
+
+function kill() {
+  if (pokemon1.HP <= 0) {
+    state = "loss";
+  }
+  if (pokemon2.HP <= 0) {
+    state = "victory";
   }
 }
 
